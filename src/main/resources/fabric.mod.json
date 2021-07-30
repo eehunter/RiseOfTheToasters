@@ -3,6 +3,12 @@
   "id": "toastermod",
   "version": "${version}",
 
+  "custom": {
+    "cardinal-components": [
+      "toastermod:proto_comp"
+    ]
+  },
+
   "name": "Rise of the Toasters",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
@@ -23,6 +29,9 @@
     ],
     "client": [
       "com.oyosite.ticon.toastermod.ToasterModClient"
+    ],
+    "cardinal-components": [
+      "com.oyosite.ticon.toastermod.component.EntityEntrypoint"
     ]
   },
   "mixins": [

@@ -16,6 +16,11 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+	}
 }
 
 dependencies {
@@ -29,6 +34,10 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.11:dev'
+	modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.1.1"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
+	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
 }
 
 processResources {

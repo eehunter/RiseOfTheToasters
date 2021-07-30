@@ -38,7 +38,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
     public static final Identifier defaultProtoTexture = new Identifier("toastermod:nbortu");
 
     public String headBone = "head";
-    public String bodyBone = "body";
+    public String bodyBone = "torso";
     public String rightArmBone = "rightArm";
     public String leftArmBone = "leftArm";
     public String rightLegBone = "rightLeg";

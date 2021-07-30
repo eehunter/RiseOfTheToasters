@@ -1,5 +1,6 @@
 package com.oyosite.ticon.toastermod.client;
 
+import com.oyosite.ticon.toastermod.ToasterMod;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -13,16 +14,16 @@ public class ProtogenModel<T extends ProtoModelController> extends AnimatedGeoMo
 
     @Override
     public Identifier getModelLocation(T animatable) {
-        return null;
+        return new Identifier(ToasterMod.MODID, "geo/default_proto_model.geo.json");
     }
 
     @Override
     public Identifier getTextureLocation(T animatable) {
-        return null;
+        return ProtogenFeatureRenderer.defaultProtoTexture;
     }
 
     @Override
     public Identifier getAnimationFileLocation(T animatable) {
-        return null;
+        return new Identifier(ToasterMod.MODID, "animations/default_proto.animation.json");
     }
 }

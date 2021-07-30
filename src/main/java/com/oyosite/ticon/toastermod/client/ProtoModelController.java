@@ -20,6 +20,8 @@ public interface ProtoModelController extends IAnimatable {
     class DefaultImpl implements ProtoModelController{
         protected static final List<Pair<String, Identifier>> texLocs = ImmutableList.of(new Pair<>("static", new Identifier(ToasterMod.MODID, "textures/models/default_protogen_static.png")));
 
+        private final AnimationFactory factory = new AnimationFactory(this);
+
         @Override
         public void registerControllers(AnimationData animationData) {
 
@@ -27,7 +29,7 @@ public interface ProtoModelController extends IAnimatable {
 
         @Override
         public AnimationFactory getFactory() {
-            return null;
+            return factory;
         }
 
 
