@@ -18,7 +18,7 @@ public interface ProtoModelController extends IAnimatable {
     @Nullable List<Pair<String, Identifier>> getTextures();
 
     class DefaultImpl implements ProtoModelController{
-        protected static final List<Pair<String, Identifier>> texLocs = ImmutableList.of(new Pair<>("static", new Identifier(ToasterMod.MODID, "textures/models/default_protogen_static.png")));
+        protected static final List<Pair<String, Identifier>> texLocs = ImmutableList.of(new Pair<>("fur", new Identifier(ToasterMod.MODID, "textures/models/default_protogen_fur.png")), new Pair<>("trim", new Identifier(ToasterMod.MODID, "textures/models/default_protogen_trim.png")), new Pair<>("lights", new Identifier(ToasterMod.MODID, "textures/models/default_protogen_lights.png")));
 
         private final AnimationFactory factory = new AnimationFactory(this);
 
