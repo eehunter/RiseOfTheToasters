@@ -1,19 +1,30 @@
 package com.oyosite.ticon.toastermod.component;
 
+import com.google.common.collect.ImmutableList;
 import com.oyosite.ticon.toastermod.Util;
 import com.oyosite.ticon.toastermod.client.ProtoModelController;
 import com.oyosite.ticon.toastermod.client.ProtogenFeatureRenderer;
 import com.oyosite.ticon.toastermod.client.ProtogenModel;
+import com.oyosite.ticon.toastermod.item.Limb;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtString;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("rawtypes")
@@ -26,8 +37,10 @@ public interface ProtogenComponent extends AutoSyncedComponent {
     int getPackedColorForTextureLayer(String texture);
     default boolean toasterEnabled() {return true;}
 
+    Map<String, ItemStack> getLimbs();
     ItemStack getLimb(String slot);
     void setLimb(String slot, ItemStack limb);
+    ItemStack removeLimb(String slot);
 
     class Impl implements ProtogenComponent {
 
@@ -52,6 +65,12 @@ public interface ProtogenComponent extends AutoSyncedComponent {
                 for (String key : l.getKeys()) limbs.put(key, ItemStack.fromNbt(l.getCompound(key)));
                 for (String key : c.getKeys()) cyber.put(key, ItemStack.fromNbt(c.getCompound(key)));
             } catch (Exception ignored) {}
+            ItemStack s = new ItemStack(Items.STONE);
+            s.setCustomName(new TranslatableText("toastermod.test_arm.name").setStyle(Style.EMPTY.withItalic(false)));
+            NbtCompound n = s.getOrCreateSubNbt("limb_data");
+            n.putString("sec", "toastermod:limbs/test");
+            n.putString("static", "test_arm");
+            limbs.put(Limb.MAIN_HAND, s);
         }
 
         @Override
@@ -82,6 +101,11 @@ public interface ProtogenComponent extends AutoSyncedComponent {
         }
 
         @Override
+        public Map<String, ItemStack> getLimbs() {
+            return limbs;
+        }
+
+        @Override
         public ItemStack getLimb(String slot) {
             return limbs.getOrDefault(slot, ItemStack.EMPTY);
         }
@@ -89,6 +113,91 @@ public interface ProtogenComponent extends AutoSyncedComponent {
         @Override
         public void setLimb(String slot, ItemStack limb) {
             limbs.put(slot, limb);
+        }
+
+        @Override
+        public ItemStack removeLimb(String slot) { return limbs.remove(slot); }
+
+        public record LimbInventory(ProtogenComponent comp) implements Inventory {
+
+            private static final List<String> SLOT_IDS = List.of(Limb.MAIN_HAND, Limb.OFF_HAND, Limb.TAIL, Limb.RIGHT_LEG, Limb.LEFT_LEG);
+
+            public static LimbInventory of(ProtogenComponent comp) {
+                return new LimbInventory(comp);
+            }
+
+            @Override
+            public int size() {
+                return SLOT_IDS.size();
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return SLOT_IDS.stream().allMatch(s -> comp.getLimb(s) == null || comp.getLimb(s).isEmpty());
+            }
+
+            @Override
+            public ItemStack getStack(int slot) {
+                return comp.getLimb(SLOT_IDS.get(slot));
+            }
+
+            @Override
+            public ItemStack removeStack(int slot, int amount) {
+                ItemStack s = comp.getLimb(SLOT_IDS.get(slot));
+                ItemStack s1 = s.copy();
+                s1.setCount(Math.min(s.getCount(), amount));
+                s.decrement(amount);
+                comp.setLimb(SLOT_IDS.get(slot), s);
+                if (!s1.isEmpty()) markDirty();
+                return s1;
+            }
+
+            @Override
+            public ItemStack removeStack(int slot) {
+                ItemStack s = comp.getLimb(SLOT_IDS.get(slot));
+                comp.setLimb(SLOT_IDS.get(slot), ItemStack.EMPTY);
+                return s;
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                comp.setLimb(SLOT_IDS.get(slot), stack);
+            }
+
+            @Override
+            public void markDirty() {
+
+            }
+
+            @Override
+            public boolean canPlayerUse(PlayerEntity player) {
+                return comp.toasterEnabled();
+            }
+
+            @Override
+            public void clear() {
+                SLOT_IDS.forEach(comp::removeLimb);
+            }
+
+            @SuppressWarnings("RedundantIfStatement")
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                //System.out.println("Hmm?");
+                Limb limb = new Limb(stack);
+                if (limb.isValid()){
+                    NbtCompound nbt = stack.getSubNbt("limb_data");
+                    if(nbt != null){
+                        //System.out.println("Individual item registered: "+(nbt.contains("slots") && nbt.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals)));
+                        if(nbt.contains("static", 8) && Limb.STATIC_NBT.containsKey(nbt.getString("static"))){
+                            NbtCompound stat = Limb.STATIC_NBT.get(nbt.getString("static"));
+                            //System.out.println("Static item registered: "+(stat.contains("slots") && stat.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals)));
+                            if (stat.contains("slots") && stat.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals))return true;
+                        }
+                        if (nbt.contains("slots") && nbt.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals))return true;
+                    }
+                }
+                return false;
+            }
         }
 
 

@@ -5,14 +5,17 @@
 
   "custom": {
     "cardinal-components": [
-      "toastermod:proto_comp"
+      "toastermod:proto_comp",
+      "toastermod:proto_tick_comp"
     ]
   },
 
   "name": "Rise of the Toasters",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Thanks to Torch for making some of the textures used in the mod and Toaster for making the main player model and textures for it.",
   "authors": [
-    "Ned Hunter"
+    "Ned Hunter",
+    "Torch the Dragon",
+    "Toaster"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -42,7 +45,8 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.17.x",
-    "java": ">=16"
+    "java": ">=16",
+    "geckolib3": "*"
   },
   "suggests": {
     "another-mod": "*"
