@@ -173,23 +173,10 @@ public interface ProtogenComponent extends AutoSyncedComponent {
                 SLOT_IDS.forEach(comp::removeLimb);
             }
 
-            @SuppressWarnings("RedundantIfStatement")
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                //System.out.println("Hmm?");
                 Limb limb = new Limb(stack);
-                if (limb.isValid()){
-                    NbtCompound nbt = stack.getSubNbt("limb_data");
-                    if(nbt != null){
-                        //System.out.println("Individual item registered: "+(nbt.contains("slots") && nbt.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals)));
-                        if(nbt.contains("static", 8) && Limb.STATIC_NBT.containsKey(nbt.getString("static"))){
-                            NbtCompound stat = Limb.STATIC_NBT.get(nbt.getString("static"));
-                            //System.out.println("Static item registered: "+(stat.contains("slots") && stat.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals)));
-                            if (stat.contains("slots") && stat.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals))return true;
-                        }
-                        if (nbt.contains("slots") && nbt.getList("slots",8).stream().map(NbtElement::asString).anyMatch(SLOT_IDS.get(slot)::equals))return true;
-                    }
-                }
+                if (limb.isValid()) return limb.getValidSlots().stream().anyMatch(SLOT_IDS.get(slot)::equals);
                 return false;
             }
         }

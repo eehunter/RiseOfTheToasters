@@ -38,10 +38,7 @@ public record Limb(ItemStack stack) {
     public List<String> getValidSlots() {
         List<String> otpt = new ArrayList<>();
         NbtCompound limbData = getCompleteLimbData();
-        if (limbData.contains("slots")) {
-            NbtList slots = limbData.getList("slots", 8);
-            for (int i = 0; i < slots.size(); i++) otpt.add(slots.getString(i));
-        }
+        if (limbData.contains("slots")) limbData.getList("slots", 8).stream().map(NbtElement::asString).forEach(otpt::add);
         return otpt;
     }
 
