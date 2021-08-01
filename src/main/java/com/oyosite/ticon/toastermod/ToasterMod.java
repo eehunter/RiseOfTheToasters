@@ -4,7 +4,6 @@ import com.oyosite.ticon.toastermod.block.BlockRegistry;
 import com.oyosite.ticon.toastermod.client.gui.LimbScreenHandler;
 import com.oyosite.ticon.toastermod.item.ItemRegistry;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;

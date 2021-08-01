@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ItemRegistry {
