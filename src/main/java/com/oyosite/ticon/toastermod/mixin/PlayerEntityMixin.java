@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.util.Arm;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +28,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "canHarvest(Lnet/minecraft/block/BlockState;)Z", at = @At("HEAD"), cancellable = true)
     public void canHarvestInject(BlockState state, CallbackInfoReturnable<Boolean> info){
         ProtogenComponent comp = EntityEntrypoint.PROTO_COMP.get(this);
-        Limb l = new Limb(comp.getLimb(Limb.MAIN_HAND));
+        Limb l = new Limb(comp.getLimb(this.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM));
         if (l.isValid()&&l.allowHarvest(state, this.inventory.getMainHandStack())) info.setReturnValue(true);
     }
 }

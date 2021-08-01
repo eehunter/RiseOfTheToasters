@@ -5,12 +5,14 @@ import com.oyosite.ticon.toastermod.component.EntityEntrypoint;
 import com.oyosite.ticon.toastermod.component.ProtogenComponent;
 import com.oyosite.ticon.toastermod.item.Limb;
 import com.oyosite.ticon.toastermod.component.ProtogenComponent.Impl.LimbInventory;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Hand;
 
 public class LimbScreenHandler extends ScreenHandler {
     LimbInventory lInv;

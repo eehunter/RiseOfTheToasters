@@ -1,6 +1,5 @@
 package com.oyosite.ticon.toastermod.component;
 
-import com.google.common.collect.ImmutableList;
 import com.oyosite.ticon.toastermod.Util;
 import com.oyosite.ticon.toastermod.client.ProtoModelController;
 import com.oyosite.ticon.toastermod.client.ProtogenFeatureRenderer;
@@ -15,14 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
-import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +60,11 @@ public interface ProtogenComponent extends AutoSyncedComponent {
                 for (String key : c.getKeys()) cyber.put(key, ItemStack.fromNbt(c.getCompound(key)));
             } catch (Exception ignored) {}
             ItemStack s = new ItemStack(Items.STONE);
-            s.setCustomName(new TranslatableText("toastermod.test_arm.name").setStyle(Style.EMPTY.withItalic(false)));
+            s.setCustomName(new TranslatableText("item.toastermod.test_arm.name").setStyle(Style.EMPTY.withItalic(false)));
             NbtCompound n = s.getOrCreateSubNbt("limb_data");
             n.putString("sec", "toastermod:limbs/test");
             n.putString("static", "test_arm");
-            limbs.put(Limb.MAIN_HAND, s);
+            limbs.put(Limb.RIGHT_ARM, s);
         }
 
         @Override
@@ -120,7 +114,7 @@ public interface ProtogenComponent extends AutoSyncedComponent {
 
         public record LimbInventory(ProtogenComponent comp) implements Inventory {
 
-            private static final List<String> SLOT_IDS = List.of(Limb.MAIN_HAND, Limb.OFF_HAND, Limb.TAIL, Limb.RIGHT_LEG, Limb.LEFT_LEG);
+            private static final List<String> SLOT_IDS = List.of(Limb.RIGHT_ARM, Limb.LEFT_ARM, Limb.TAIL, Limb.RIGHT_LEG, Limb.LEFT_LEG);
 
             public static LimbInventory of(ProtogenComponent comp) {
                 return new LimbInventory(comp);

@@ -1,5 +1,6 @@
 package com.oyosite.ticon.toastermod.item;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.ToolManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.CommandBlockBlockEntity;
 import net.minecraft.entity.Entity;
@@ -22,7 +23,7 @@ public class Limb {
 
     public static final Map<String, NbtCompound> STATIC_NBT = new HashMap<>();
 
-    public static final String MAIN_HAND = "main_hand", OFF_HAND = "off_hand", TAIL = "tail", RIGHT_LEG = "right_leg", LEFT_LEG = "left_leg";
+    public static final String RIGHT_ARM = "right_arm", LEFT_ARM = "left_arm", TAIL = "tail", RIGHT_LEG = "right_leg", LEFT_LEG = "left_leg", FUR_COLORIZER = "fur_color", TRIM_COLORIZER = "trim_color", LIGHT_COLORIZER = "light_color";
 
     private final ItemStack stack;
     public Limb(ItemStack stack){
@@ -97,6 +98,7 @@ public class Limb {
     }
 
     public boolean allowHarvest(BlockState state, ItemStack heldItem){
+
         return heldItem==null || heldItem.isEmpty();
     }
 

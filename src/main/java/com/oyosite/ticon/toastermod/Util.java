@@ -1,6 +1,5 @@
 package com.oyosite.ticon.toastermod;
 
-import com.google.common.collect.ImmutableList;
 import com.oyosite.ticon.toastermod.client.gui.LimbScreenHandler;
 import com.oyosite.ticon.toastermod.component.EntityEntrypoint;
 import com.oyosite.ticon.toastermod.component.ProtogenComponent;
@@ -19,6 +18,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import org.jetbrains.annotations.Nullable;
@@ -46,15 +46,15 @@ public class Util {
         ServerPlayNetworking.registerGlobalReceiver(ToasterMod.OPEN_LIMB_SCREEN_CHANNEL_ID, (server, player, handler, buf, sender)->player.openHandledScreen(LIMB_SCREEN_FACTORY));
         ServerPlayNetworking.registerGlobalReceiver(new Identifier(ToasterMod.MODID, "use"), (server, player, handler, buf, sender)->{
             ProtogenComponent comp = EntityEntrypoint.PROTO_COMP.get(player);
-            Limb l = new Limb(comp.getLimb(Limb.MAIN_HAND));
-            if (l.isValid()) l.onUse(player, Limb.MAIN_HAND);
+            Limb l = new Limb(comp.getLimb(player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM));
+            if (l.isValid()) l.onUse(player, player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM);
         });
         UseItemCallback.EVENT.register((player, world, hand)->{
             if (world.isClient()) ClientPlayNetworking.send(new Identifier(ToasterMod.MODID, "use"), PacketByteBufs.empty());
             return TypedActionResult.pass(ItemStack.EMPTY);
         });
         NbtCompound nbt = new NbtCompound();
-        nbt.put("slots", toNBTStringList(Limb.MAIN_HAND, Limb.OFF_HAND));
+        nbt.put("slots", toNBTStringList(Limb.RIGHT_ARM, Limb.LEFT_ARM));
         nbt.putString("use", "toastermod:limbs/use");
         Limb.STATIC_NBT.put("test_arm", nbt);
     }
