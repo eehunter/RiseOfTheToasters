@@ -1,14 +1,13 @@
 package com.oyosite.ticon.toastermod.item;
 
-import com.google.common.collect.ImmutableList;
 import com.oyosite.ticon.toastermod.ToasterMod;
+import com.oyosite.ticon.toastermod.item.LimbItem.NBTBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
 public class ItemRegistry {
     public static final Map<String, Item> ITEM_REGISTRY = new HashMap<>();
 
-    public static final LimbItem COLORIZER = r("colorizer", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), List.of("fur_color","trim_color","light_color")));
+    public static final LimbItem COLORIZER = r("colorizer", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots","fur_color","trim_color","light_color")));
 
 
     public static <I extends Item> I r(String id, I item){

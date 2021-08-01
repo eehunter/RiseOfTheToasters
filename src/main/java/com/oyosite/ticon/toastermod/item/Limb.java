@@ -39,55 +39,40 @@ public class Limb {
 
     public List<String> getValidSlots(){
         List<String> otpt = new ArrayList<>();
-        if(stack.getItem() instanceof LimbItem)otpt.addAll(((LimbItem)stack.getItem()).getValidSlots());
-        NbtCompound limbData = stack.getSubNbt("limb_data");
-        if(limbData != null){
-            NbtList slots;
-            if(limbData.contains("static")&&STATIC_NBT.containsKey(limbData.getString("static"))&&STATIC_NBT.get(limbData.getString("static")).contains("slots")){
-                slots = STATIC_NBT.get(limbData.getString("static")).getList("slots", 8);
-                for(int i = 0; i < slots.size(); i++)otpt.add(slots.getString(i));
-            }
-            if(limbData.contains("slots")) {
-                slots = limbData.getList("slots", 8);
-                for (int i = 0; i < slots.size(); i++) otpt.add(slots.getString(i));
-            }
+        NbtCompound limbData = getCompleteLimbData();
+        if(limbData.contains("slots")) {
+            NbtList slots = limbData.getList("slots", 8);
+            for (int i = 0; i < slots.size(); i++) otpt.add(slots.getString(i));
         }
         return otpt;
     }
 
-    public void tick(LivingEntity e, String slot){
-        //System.out.println("Ticking limb");
-        NbtCompound limbData = stack.getSubNbt("limb_data");
+    public void tick(LivingEntity e, String slot){//System.out.println("Ticking limb");
+        NbtCompound limbData = getCompleteLimbData();
+        String tick = limbData.getString("tick");
+        if(e.world.getServer()!=null&&tick!=null)e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function "+tick);
         if(e.world.getTime()%20==0){
-            String sec = getStatic(e,slot).getString("sec");
-            if(limbData != null&&limbData.contains("sec"))sec = limbData.getString("sec");
+            String sec = limbData.getString("sec");
             if(e.world.getServer()!=null&&sec!=null)e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function "+sec);
         }
     }
 
     public void onBreak(LivingEntity e, String slot){
-        NbtCompound limbData = stack.getSubNbt("limb_data");
-        String b = getStatic(e,slot).getString("break");
-        if(limbData != null&&limbData.contains("break"))b = limbData.getString("break");
+        String b = getCompleteLimbData().getString("break");
         if(e.world.getServer()!=null&&b!=null)e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function "+b);
     }
 
     public void onHit(LivingEntity e, String slot){
-        NbtCompound limbData = stack.getSubNbt("limb_data");
-        String h = getStatic(e,slot).getString("hit");
-        if(limbData != null&&limbData.contains("hit"))h = limbData.getString("hit");
+        String h = getCompleteLimbData().getString("hit");
         if(e.world.getServer()!=null&&h!=null)e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function "+h);
     }
 
     public void onUse(LivingEntity e, String slot){
-        NbtCompound limbData = stack.getSubNbt("limb_data");
-        String u = getStatic(e,slot).getString("use");
-        if(limbData != null&&limbData.contains("use"))u = limbData.getString("use");
-        //System.out.println("Using item with function: " + u);
+        String u = getCompleteLimbData().getString("use");
         if(e.world.getServer()!=null&&u!=null)e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function "+u);
     }
 
-    public NbtCompound getStatic(LivingEntity e, String slot){
+    public NbtCompound getStatic(){
         NbtCompound limbData = stack.getSubNbt("limb_data");
         try{ return limbData != null ? STATIC_NBT.get(limbData.getString("static")) : new NbtCompound(); }
         catch (Exception ignored) { return new NbtCompound(); }
@@ -100,6 +85,14 @@ public class Limb {
     public boolean allowHarvest(BlockState state, ItemStack heldItem){
 
         return heldItem==null || heldItem.isEmpty();
+    }
+
+    public NbtCompound getCompleteLimbData(){
+        NbtCompound otpt = new NbtCompound();
+        if(stack.getItem() instanceof LimbItem)otpt.copyFrom(((LimbItem)stack.getItem()).getDefaultNBT());
+        otpt.copyFrom(getStatic());
+        if(stack.getSubNbt("limb_data")!=null)otpt.copyFrom(stack.getSubNbt("limb_data"));
+        return otpt;
     }
 
     private static class CmdOtpt implements CommandOutput{
