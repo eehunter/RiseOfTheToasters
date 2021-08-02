@@ -26,7 +26,10 @@ public class LimbScreenHandler extends ScreenHandler {
         this.addSlot(new LimbSlot(lInv, 3, 71, 63));
         this.addSlot(new LimbSlot(lInv, 4, 89, 63));
         int m, l;
-        for (m = 0; m < 3; ++m) for (l = 0; l < 9; ++l) this.addSlot(new Slot(inv, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
+        for (m = 0; m < 3; ++m) {
+            this.addSlot(new Slot(lInv, 5+m, 8, 17+18*m));
+            for (l = 0; l < 9; ++l) this.addSlot(new Slot(inv, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
+        }
         for (m = 0; m < 9; ++m) this.addSlot(new Slot(inv, m, 8 + m * 18, 142));
 
     }

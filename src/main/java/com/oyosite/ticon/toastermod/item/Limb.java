@@ -5,8 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -26,7 +24,7 @@ public record Limb(ItemStack stack) {
     public static final String LEFT_LEG = "left_leg";
     public static final String FUR_COLORIZER = "fur_color";
     public static final String TRIM_COLORIZER = "trim_color";
-    public static final String LIGHT_COLORIZER = "light_color";
+    public static final String LIGHT_COLORIZER = "lights_color";
 
     public boolean isValid() {
         if (stack == null || stack.isEmpty()) return false;
@@ -42,34 +40,29 @@ public record Limb(ItemStack stack) {
         return otpt;
     }
 
-    public void tick(LivingEntity e, String slot) {//System.out.println("Ticking limb");
+    public void tick(LivingEntity e, String slot) {
         NbtCompound limbData = getCompleteLimbData();
         String tick = limbData.getString("tick");
-        if (e.world.getServer() != null && tick != null)
-            e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + tick);
+        if (e.world.getServer() != null && tick != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + tick);
         if (e.world.getTime() % 20 == 0) {
             String sec = limbData.getString("sec");
-            if (e.world.getServer() != null && sec != null)
-                e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + sec);
+            if (e.world.getServer() != null && sec != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + sec);
         }
     }
 
     public void onBreak(LivingEntity e, String slot) {
         String b = getCompleteLimbData().getString("break");
-        if (e.world.getServer() != null && b != null)
-            e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + b);
+        if (e.world.getServer() != null && b != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + b);
     }
 
     public void onHit(LivingEntity e, String slot) {
         String h = getCompleteLimbData().getString("hit");
-        if (e.world.getServer() != null && h != null)
-            e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + h);
+        if (e.world.getServer() != null && h != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + h);
     }
 
     public void onUse(LivingEntity e, String slot) {
         String u = getCompleteLimbData().getString("use");
-        if (e.world.getServer() != null && u != null)
-            e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + u);
+        if (e.world.getServer() != null && u != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + u);
     }
 
     public NbtCompound getStatic() {

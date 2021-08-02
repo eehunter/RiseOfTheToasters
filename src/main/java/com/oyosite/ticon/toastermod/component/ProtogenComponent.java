@@ -10,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -91,6 +92,8 @@ public interface ProtogenComponent extends AutoSyncedComponent {
 
         @Override
         public int getPackedColorForTextureLayer(String texture) {
+            ItemStack c = limbs.get(texture+"_color");
+            if (c!=null && c.getItem() instanceof DyeableItem && ((DyeableItem) c.getItem()).hasColor(c)) return ((DyeableItem) c.getItem()).getColor(c);
             return texColors.getOrDefault(texture, 0xFFFFFF);
         }
 
@@ -114,7 +117,7 @@ public interface ProtogenComponent extends AutoSyncedComponent {
 
         public record LimbInventory(ProtogenComponent comp) implements Inventory {
 
-            private static final List<String> SLOT_IDS = List.of(Limb.RIGHT_ARM, Limb.LEFT_ARM, Limb.TAIL, Limb.RIGHT_LEG, Limb.LEFT_LEG);
+            private static final List<String> SLOT_IDS = List.of(Limb.RIGHT_ARM, Limb.LEFT_ARM, Limb.TAIL, Limb.RIGHT_LEG, Limb.LEFT_LEG, Limb.FUR_COLORIZER, Limb.LIGHT_COLORIZER, Limb.TRIM_COLORIZER);
 
             public static LimbInventory of(ProtogenComponent comp) {
                 return new LimbInventory(comp);
