@@ -56,6 +56,7 @@ public class Util {
         NbtCompound nbt = new NbtCompound();
         nbt.put("slots", toNBTStringList(Limb.RIGHT_ARM, Limb.LEFT_ARM));
         nbt.putString("use", "toastermod:limbs/use");
+        nbt.putInt("up", 2);
         Limb.STATIC_NBT.put("test_arm", nbt);
     }
 

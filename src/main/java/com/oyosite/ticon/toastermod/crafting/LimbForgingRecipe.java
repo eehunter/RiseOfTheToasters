@@ -1,11 +1,15 @@
 package com.oyosite.ticon.toastermod.crafting;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.oyosite.ticon.toastermod.block.BlockRegistry;
 import com.oyosite.ticon.toastermod.item.Limb;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
@@ -13,6 +17,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +45,9 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, JsonObject flags
         ItemStack stack = inventory.getStack(0).copy();
         NbtCompound up = new NbtCompound();
         addFlags.entrySet().stream().map(e-> new Pair<>(e.getKey(), Integer.parseInt(e.getValue().toString()))).forEach(p->up.putInt(p.getLeft(),p.getRight()));
-        NbtCompound limb_data = stack.getOrCreateSubNbt("limb_data");
+        NbtCompound limb_data = stack.getOrCreateSubNbt("limb_data"), completeLimbData = new Limb(stack).getCompleteLimbData();
+        int upgPts = completeLimbData.contains("up", NbtElement.INT_TYPE)?completeLimbData.getInt("up"):2;
+        limb_data.putInt("up", upgPts-UPCost);
         if(!limb_data.contains("upgrades"))limb_data.put("upgrades", up);
         else limb_data.getCompound("upgrades").copyFrom(up);
 
@@ -76,21 +83,41 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, JsonObject flags
 
         @Override
         public LimbForgingRecipe read(Identifier id, JsonObject json) {
-            Ingredient ingredient = Ingredient.fromJson(JsonHelper.getObject(json, "limb"));
-            Ingredient ingredient2 = Ingredient.fromJson(JsonHelper.getObject(json, "addition"));
-            ItemStack itemStack = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-            //NbtCompound prerequisites =
-            return null;
+            Ingredient limb = Ingredient.fromJson(JsonHelper.getObject(json, "limb"));
+            JsonObject prerequisites = json.getAsJsonObject("prerequisites");
+            Ingredient addition = Ingredient.fromJson(JsonHelper.getObject(json, "addition"));
+            int upCost = json.get("upCost").getAsInt();
+            List<String> slots = new ArrayList<>();
+            json.getAsJsonArray("slots").forEach(e->slots.add(e.getAsString()));
+            ItemStack result = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
+            JsonObject addFlags = json.getAsJsonObject("addFlags");
+            return new LimbForgingRecipe(id, limb, prerequisites, addition, upCost, slots, result, addFlags);
         }
 
         @Override
         public LimbForgingRecipe read(Identifier id, PacketByteBuf buf) {
-            return null;
+            Ingredient limb = Ingredient.fromPacket(buf);
+            JsonObject prerequisites = JsonHelper.deserialize(buf.readString());
+            Ingredient addition = Ingredient.fromPacket(buf);
+            int upCost= buf.readByte();
+            List<String> slots = new ArrayList<>();
+            short slotListLen = buf.readShort();
+            for(short i = 0; i < slotListLen; i++) slots.add(buf.readString());
+            ItemStack result = buf.readItemStack();
+            JsonObject addFlags = JsonHelper.deserialize(buf.readString());
+            return new LimbForgingRecipe(id, limb, prerequisites, addition, upCost, slots, result, addFlags);
         }
 
         @Override
         public void write(PacketByteBuf buf, LimbForgingRecipe r) {
-
+            r.limb.write(buf);
+            buf.writeString(r.flags.toString());
+            r.addition.write(buf);
+            buf.writeByte(r.UPCost);
+            buf.writeShort(r.slotCompat.size());
+            for(short i = 0; i < r.slotCompat.size(); i++) buf.writeString(r.slotCompat.get(i));
+            buf.writeString(r.addFlags.toString());
+            buf.writeItemStack(r.result);
         }
     }
 
