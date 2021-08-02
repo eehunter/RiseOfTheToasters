@@ -1,5 +1,6 @@
 package com.oyosite.ticon.toastermod;
 
+import com.oyosite.ticon.toastermod.client.gui.LimbForgingScreen;
 import com.oyosite.ticon.toastermod.client.gui.LimbScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -21,6 +22,7 @@ public class ToasterModClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(ToasterModClient::limbKeyEvent);
         ScreenRegistry.register(ToasterMod.LIMB_SCREEN_HANDLER, LimbScreen::new);
+        ScreenRegistry.register(ToasterMod.LIMB_FORGE_SCREEN_HANDLER, LimbForgingScreen::new);
     }
 
 

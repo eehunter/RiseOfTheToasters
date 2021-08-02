@@ -1,19 +1,21 @@
 package com.oyosite.ticon.toastermod.client.gui;
 
+import com.oyosite.ticon.toastermod.ToasterMod;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
-import org.jetbrains.annotations.Nullable;
 
 public class LimbForgingScreenHandler extends ForgingScreenHandler {
 
+    public LimbForgingScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    }
 
-    public LimbForgingScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(type, syncId, playerInventory, context);
+    public LimbForgingScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ToasterMod.LIMB_FORGE_SCREEN_HANDLER, syncId, playerInventory, context);
     }
 
     @Override
