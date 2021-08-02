@@ -75,7 +75,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
             MinecraftClient.getInstance().getTextureManager().bindTexture(tex.getRight());
             VertexConsumer vc = bufferIn.getBuffer(RenderLayer.getEntityCutoutNoCull(tex.getRight()));
             RenderLayer renderType = getRenderType(protoModelController, partialTicks, stack, null, vc, packedLightIn, tex.getRight());
-            render(model, protoModelController, partialTicks, renderType, stack, null, vc, packedLightIn, OverlayTexture.DEFAULT_UV, f, g, h, 1F);
+            render(model, protoModelController, partialTicks, renderType, stack, null, vc, tex.getLeft().startsWith("light")?15728640:packedLightIn, OverlayTexture.DEFAULT_UV, f, g, h, 1F);
         }
         stack.pop();
         stack.scale(-1.0F, -1.0F, 1.0F);

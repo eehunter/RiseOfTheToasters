@@ -1,5 +1,6 @@
 {
   "category.toastermod.main": "Rise of the Toasters",
   "key.toastermod.limb_gui": "Open Limb Configuration Menu",
+  "block.toastermod.limb_forge": "Cyberforge",
   "item.toastermod.test_arm.name": "Test Arm"
 }
