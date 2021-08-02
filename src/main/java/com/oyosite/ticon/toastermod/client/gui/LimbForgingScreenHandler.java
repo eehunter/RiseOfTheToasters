@@ -10,6 +10,8 @@ import net.minecraft.screen.ScreenHandlerType;
 import org.jetbrains.annotations.Nullable;
 
 public class LimbForgingScreenHandler extends ForgingScreenHandler {
+
+
     public LimbForgingScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(type, syncId, playerInventory, context);
     }
