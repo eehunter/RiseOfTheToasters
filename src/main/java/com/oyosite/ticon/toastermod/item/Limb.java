@@ -29,6 +29,7 @@ public record Limb(ItemStack stack) {
     public boolean isValid() {
         if (stack == null || stack.isEmpty()) return false;
         if (stack.getItem() instanceof LimbItem) return true;
+        if (ItemRegistry.VALID_LIMB_TAG.contains(stack.getItem())) return true;
         NbtCompound limbData = stack.getSubNbt("limb_data");
         return limbData != null;
     }
@@ -38,6 +39,17 @@ public record Limb(ItemStack stack) {
         NbtCompound limbData = getCompleteLimbData();
         if (limbData.contains("slots")) limbData.getList("slots", 8).stream().map(NbtElement::asString).forEach(otpt::add);
         return otpt;
+    }
+
+    public int getTier(){
+        NbtCompound nbt = stack.getOrCreateSubNbt("limb_data");
+        return nbt.contains("tier", 3)? nbt.getInt("tier") : 0;
+    }
+
+    public List<Upgrade> getUpgrades(){
+        NbtCompound nbt = stack.getOrCreateSubNbt("limb_data").getCompound("upgrades");
+        if(nbt==null)return new ArrayList<>();
+        return Upgrade.REGISTRY.stream().filter(u->nbt.contains(u.getName())).toList();
     }
 
     public void tick(LivingEntity e, String slot) {
@@ -91,6 +103,8 @@ public record Limb(ItemStack stack) {
         if (stack.getSubNbt("limb_data") != null) otpt.copyFrom(stack.getSubNbt("limb_data"));
         return otpt;
     }
+
+
 
     private static class CmdOtpt implements CommandOutput {
 
