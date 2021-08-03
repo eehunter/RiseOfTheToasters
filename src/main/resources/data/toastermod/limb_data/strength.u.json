@@ -1,7 +1,15 @@
 {
   "tick": {
     ">=1": [
-
+      {
+        "type": "command",
+        "delay": 20,
+        "cmd": [
+          "effect give @s minecraft:strength 2 ",
+          "[LEVEL-1]",
+          " true"
+        ]
+      }
     ]
   }
 }

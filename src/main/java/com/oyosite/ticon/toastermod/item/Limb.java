@@ -9,6 +9,8 @@ import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.Vec2f;
 
 import java.util.*;
@@ -38,6 +40,7 @@ public record Limb(ItemStack stack) {
         List<String> otpt = new ArrayList<>();
         NbtCompound limbData = getCompleteLimbData();
         if (limbData.contains("slots")) limbData.getList("slots", 8).stream().map(NbtElement::asString).forEach(otpt::add);
+        otpt.add(RIGHT_ARM);
         return otpt;
     }
 
@@ -46,20 +49,21 @@ public record Limb(ItemStack stack) {
         return nbt.contains("tier", 3)? nbt.getInt("tier") : 0;
     }
 
-    public List<Upgrade> getUpgrades(){
+    public List<Pair<Upgrade,Integer>> getUpgrades(){
         NbtCompound nbt = stack.getOrCreateSubNbt("limb_data").getCompound("upgrades");
         if(nbt==null)return new ArrayList<>();
-        return Upgrade.REGISTRY.stream().filter(u->nbt.contains(u.getName())).toList();
+        return nbt.getKeys().stream().map(s -> new Pair<>(Upgrade.REGISTRY.get(new Identifier(s)), nbt.getInt(s))).filter(p->Objects.nonNull(p.getLeft())).toList();//nbt.getKeys().stream().map(s->Upgrade.REGISTRY.getOrDefault(new Identifier(s),null)).filter(Objects::nonNull).toList();
     }
 
     public void tick(LivingEntity e, String slot) {
-        NbtCompound limbData = getCompleteLimbData();
+        getUpgrades().forEach(u->u.getLeft().tick(e,slot,u.getRight()));
+        /*NbtCompound limbData = getCompleteLimbData();
         String tick = limbData.getString("tick");
         if (e.world.getServer() != null && tick != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + tick);
         if (e.world.getTime() % 20 == 0) {
             String sec = limbData.getString("sec");
             if (e.world.getServer() != null && sec != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + sec);
-        }
+        }*/
     }
 
     public void onBreak(LivingEntity e, String slot) {

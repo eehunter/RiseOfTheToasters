@@ -86,7 +86,7 @@ public class Util {
                         JsonObject json = JsonHelper.deserialize(builder.toString());
 
                         if(id.getPath().endsWith(".u.json")){
-                            parseUpgrade(new Identifier(id.toString().substring(0,id.toString().length()-7)), json);
+                            parseUpgrade(new Identifier(id.getNamespace(), id.getPath().substring(id.getPath().indexOf("/")+1,id.getPath().length()-7)), json);
                         }
 
                     } catch(Exception e) {
@@ -99,6 +99,7 @@ public class Util {
     }
 
     public static void parseUpgrade(Identifier id, JsonObject json){
+        System.out.println(id);
         List<Pair<Predicate<Integer>, TriConsumer<LivingEntity,String,Integer>>> tickLevels = new ArrayList<>();
         List<Pair<Predicate<Integer>, TriConsumer<LivingEntity,String,Integer>>> onUseLevels = new ArrayList<>();
         List<Pair<Predicate<Integer>, TriConsumer<LivingEntity,String,Integer>>> onHitLevels = new ArrayList<>();
@@ -135,14 +136,16 @@ public class Util {
             case "command" -> {
                 JsonArray cmd = json.getAsJsonArray("cmd");
                 List<TriFunction<LivingEntity,String,Integer,String>> sup = new ArrayList<>();
+                int delay = json.has("delay")?json.get("delay").getAsInt():1;
                 for(int i = 0; i < cmd.size(); i++){
                     String s = cmd.get(i).getAsString();
                     switch (s){
                         case "[LEVEL]" -> sup.add((x,y,z)->""+z);
+                        case "[LEVEL-1]" -> sup.add((x,y,z)->""+(z-1));
                         default -> sup.add((x,y,z)->s);
                     }
                 }
-                return (x,y,z)->{if(x.world.getServer()!=null)x.world.getServer().getCommandManager().execute(new Limb(EntityEntrypoint.PROTO_COMP.get(x).getLimb(y)).getCMD(x,y), sup.stream().map(f->f.apply(x,y,z)).collect(Collectors.joining()));};
+                return (x,y,z)->{if(x.world.getServer()!=null&&x.world.getTime()%delay==0)x.world.getServer().getCommandManager().execute(new Limb(EntityEntrypoint.PROTO_COMP.get(x).getLimb(y)).getCMD(x,y), sup.stream().map(f->f.apply(x,y,z)).collect(Collectors.joining()));};
             }
         }
         return null;
