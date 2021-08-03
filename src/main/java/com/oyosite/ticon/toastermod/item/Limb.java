@@ -55,31 +55,13 @@ public record Limb(ItemStack stack) {
         return nbt.getKeys().stream().map(s -> new Pair<>(Upgrade.REGISTRY.get(new Identifier(s)), nbt.getInt(s))).filter(p->Objects.nonNull(p.getLeft())).toList();//nbt.getKeys().stream().map(s->Upgrade.REGISTRY.getOrDefault(new Identifier(s),null)).filter(Objects::nonNull).toList();
     }
 
-    public void tick(LivingEntity e, String slot) {
-        getUpgrades().forEach(u->u.getLeft().tick(e,slot,u.getRight()));
-        /*NbtCompound limbData = getCompleteLimbData();
-        String tick = limbData.getString("tick");
-        if (e.world.getServer() != null && tick != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + tick);
-        if (e.world.getTime() % 20 == 0) {
-            String sec = limbData.getString("sec");
-            if (e.world.getServer() != null && sec != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + sec);
-        }*/
-    }
+    public void tick(LivingEntity e, String slot) { getUpgrades().forEach(u->u.getLeft().tick(e,slot,u.getRight())); }
 
-    public void onBreak(LivingEntity e, String slot) {
-        String b = getCompleteLimbData().getString("break");
-        if (e.world.getServer() != null && b != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + b);
-    }
+    public void onBreak(LivingEntity e, String slot) { getUpgrades().forEach(u->u.getLeft().onBreak(e,slot,u.getRight())); }
 
-    public void onHit(LivingEntity e, String slot) {
-        String h = getCompleteLimbData().getString("hit");
-        if (e.world.getServer() != null && h != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + h);
-    }
+    public void onHit(LivingEntity e, String slot) { getUpgrades().forEach(u->u.getLeft().onHit(e,slot,u.getRight())); }
 
-    public void onUse(LivingEntity e, String slot) {
-        String u = getCompleteLimbData().getString("use");
-        if (e.world.getServer() != null && u != null) e.world.getServer().getCommandManager().execute(getCMD(e, slot), "/function " + u);
-    }
+    public void onUse(LivingEntity e, String slot) { getUpgrades().forEach(u->u.getLeft().onUse(e,slot,u.getRight())); }
 
     public NbtCompound getStatic() {
         NbtCompound stat = new NbtCompound();

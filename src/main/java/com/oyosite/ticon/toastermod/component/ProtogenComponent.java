@@ -60,12 +60,6 @@ public interface ProtogenComponent extends AutoSyncedComponent {
                 for (String key : l.getKeys()) limbs.put(key, ItemStack.fromNbt(l.getCompound(key)));
                 for (String key : c.getKeys()) cyber.put(key, ItemStack.fromNbt(c.getCompound(key)));
             } catch (Exception ignored) {}
-            /*ItemStack s = new ItemStack(Items.STONE);
-            s.setCustomName(new TranslatableText("item.toastermod.test_arm.name").setStyle(Style.EMPTY.withItalic(false)));
-            NbtCompound n = s.getOrCreateSubNbt("limb_data");
-            n.putString("sec", "toastermod:limbs/test");
-            n.putString("static", "test_arm");
-            limbs.put(Limb.RIGHT_ARM, s);*/
         }
 
         @Override
