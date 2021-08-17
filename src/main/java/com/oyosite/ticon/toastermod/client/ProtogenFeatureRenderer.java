@@ -148,7 +148,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
         @Override
         public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
             ProtogenComponent comp = EntityEntrypoint.PROTO_COMP.get(entity);
-            ProtogenFeatureRenderer renderer = comp.getRenderer();
+            ProtogenFeatureRenderer renderer = (ProtogenFeatureRenderer) comp.getRenderer();
             renderer.protoModelController = comp.getModelController();
             renderer.livingEntity = entity;
             renderer.setCtxModel(this.getContextModel());

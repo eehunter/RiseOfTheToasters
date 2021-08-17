@@ -4,10 +4,10 @@
   "package": "com.oyosite.ticon.toastermod.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "PlayerEntityMixin",
-    "PlayerEntityRendererMixin"
+    "PlayerEntityMixin"
   ],
   "client": [
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

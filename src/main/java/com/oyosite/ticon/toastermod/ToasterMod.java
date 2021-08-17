@@ -12,6 +12,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.GeckoLib;
 
 public class ToasterMod implements ModInitializer {
 
@@ -29,6 +30,7 @@ public class ToasterMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        GeckoLib.initialize();
         BlockRegistry.register();
         ItemRegistry.register();
         Util.registerMisc();

@@ -5,6 +5,8 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class EntityEntrypoint implements EntityComponentInitializer {
@@ -14,7 +16,8 @@ public class EntityEntrypoint implements EntityComponentInitializer {
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(PROTO_COMP, player -> new ProtogenComponent.Impl(), RespawnCopyStrategy.ALWAYS_COPY);
-        registry.registerForPlayers(PROTO_TICK_COMP, player -> new ProtoTickComponent.Impl(player), RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerForPlayers(PROTO_COMP, ProtogenComponent.Impl::new, RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerForPlayers(PROTO_TICK_COMP, ProtoTickComponent.Impl::new, RespawnCopyStrategy.ALWAYS_COPY);
+
     }
 }

@@ -1,9 +1,8 @@
 package com.oyosite.ticon.toastermod.component;
 
+import com.oyosite.ticon.toastermod.ToasterModClient;
 import com.oyosite.ticon.toastermod.Util;
 import com.oyosite.ticon.toastermod.client.ProtoModelController;
-import com.oyosite.ticon.toastermod.client.ProtogenFeatureRenderer;
-import com.oyosite.ticon.toastermod.client.ProtogenModel;
 import com.oyosite.ticon.toastermod.item.Limb;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.fabricmc.api.EnvType;
@@ -12,21 +11,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.text.Style;
-import net.minecraft.text.TranslatableText;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"UnusedReturnValue"})
 public interface ProtogenComponent extends AutoSyncedComponent {
 
     @Environment(EnvType.CLIENT)
-    ProtogenFeatureRenderer getRenderer();
+    Object getRenderer();
 
     ProtoModelController getModelController();
     int getPackedColorForTextureLayer(String texture);
@@ -38,19 +33,22 @@ public interface ProtogenComponent extends AutoSyncedComponent {
     ItemStack removeLimb(String slot);
 
     class Impl implements ProtogenComponent {
+        public static Object DEFAULT_RENDERER;
+        public static final ProtoModelController DEFAULT_MODEL_CONTROLLER = new ProtoModelController.DefaultImpl();
 
-        Impl(){
+        Impl(PlayerEntity player){
             texColors.put("trim", 0xDDDDDD);
             texColors.put("fur", Util.random.nextInt(0xFFFFFF));
             texColors.put("lights", Util.random.nextInt(0xFFFFFF));
+            if (player.world.isClient()) DEFAULT_RENDERER = ToasterModClient.getProtoFeatureRenderer();
         }
 
-        public static final ProtogenFeatureRenderer DEFAULT_RENDERER = new ProtogenFeatureRenderer(new ProtogenModel());
-        public static final ProtoModelController DEFAULT_MODEL_CONTROLLER = new ProtoModelController.DefaultImpl();
 
         Map<String, ItemStack> cyber = new HashMap<>();
         Map<String, ItemStack> limbs = new HashMap<>();
         Map<String, Integer> texColors = new HashMap<>();
+
+        boolean isToaster = true;
 
         @Override
         public void readFromNbt(NbtCompound tag) {
@@ -59,6 +57,7 @@ public interface ProtogenComponent extends AutoSyncedComponent {
                 for (String key : tCol.getKeys()) texColors.put(key, tCol.getInt(key));
                 for (String key : l.getKeys()) limbs.put(key, ItemStack.fromNbt(l.getCompound(key)));
                 for (String key : c.getKeys()) cyber.put(key, ItemStack.fromNbt(c.getCompound(key)));
+                isToaster = !tag.contains("toaster") || tag.getBoolean("toaster");
             } catch (Exception ignored) {}
         }
 
@@ -71,11 +70,17 @@ public interface ProtogenComponent extends AutoSyncedComponent {
             tag.put("texColors", tCol);
             tag.put("limbs", l);
             tag.put("cyber", c);
+            tag.putBoolean("toaster", isToaster);
+        }
+
+        @Override
+        public boolean toasterEnabled() {
+            return isToaster;
         }
 
         @Override
         @Environment(EnvType.CLIENT)
-        public ProtogenFeatureRenderer getRenderer() {
+        public Object getRenderer() {
             return DEFAULT_RENDERER;
         }
 

@@ -17,6 +17,7 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+	maven { url "https://maven.shedaniel.me/" }
 	maven {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
@@ -37,7 +38,9 @@ dependencies {
 	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.11:dev'
 	modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.1.1"
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
+	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.1.1"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
+	// modRuntime "me.shedaniel:RoughlyEnoughItems:v6.0.266-alpha"
 }
 
 processResources {
