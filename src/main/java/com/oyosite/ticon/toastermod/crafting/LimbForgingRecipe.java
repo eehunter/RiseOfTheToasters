@@ -30,8 +30,12 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
         NbtCompound ld = l.getCompleteLimbData();
         //Upgrade Points
         if (ld.contains("up")&&UPCost > ld.getInt("up"))return false;
-        NbtCompound up = ld.getCompound("upgrades");
-        return (up==null||upgradePrerequisites.stream().allMatch(p->p.getRight().test(Objects.requireNonNullElse(up.getInt(p.getLeft().toString()), 0))))&&limb.test(l.stack())&&this.addition.test(inventory.getStack(1));
+        NbtCompound up = ld.contains("upgrades")?ld.getCompound("upgrades"):new NbtCompound();
+        return (upgradePrerequisites.stream().allMatch(p->{
+            boolean b = p.getRight().test(Objects.requireNonNullElse(up.getInt(p.getLeft().toString()), 0));
+            //System.out.println("Upgrade prerequisite matchers: "+b);
+            return b;
+        }))&&limb.test(l.stack())&&this.addition.test(inventory.getStack(1));
     }
 
 
@@ -39,6 +43,7 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
     @Override
     public ItemStack craft(Inventory inventory) {
         ItemStack stack = inventory.getStack(0).copy();
+        stack.setCount(1);
         NbtCompound up = new NbtCompound();
         upgradesToAdd.forEach(p->up.putInt(p.getLeft().toString(),p.getRight()));
         NbtCompound limb_data = stack.getOrCreateSubNbt("limb_data"), completeLimbData = new Limb(stack).getCompleteLimbData();
@@ -87,7 +92,7 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
             int upCost = json.get("upCost").getAsInt();
             List<String> slots = new ArrayList<>();
             if(json.has("slots")) json.getAsJsonArray("slots").forEach(e -> slots.add(e.getAsString()));
-            else slots.addAll(ImmutableList.of(Limb.RIGHT_ARM,Limb.LEFT_ARM,Limb.LEFT_LEG,Limb.RIGHT_LEG,Limb.TAIL));
+            else slots.addAll(ImmutableList.of(Limb.RIGHT_ARM,Limb.LEFT_ARM,Limb.RIGHT_LEG,Limb.LEFT_LEG,Limb.TAIL));
             JsonObject addUpgradesJson = json.getAsJsonObject("addUpgrades");
             List<Pair<Identifier, Integer>> addUpgrades = new ArrayList<>();
             addUpgradesJson.entrySet().forEach(e->addUpgrades.add(new Pair<>(new Identifier(e.getKey()), e.getValue().getAsInt())));
@@ -117,7 +122,6 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
             r.upgradePrerequisites.forEach(p -> { buf.writeString(p.getLeft().toString());buf.writeString(p.getRight().s); });
             buf.writeShort(r.UPCost);
             buf.writeByte(r.slotCompat.size());
-            //for (byte i = 0; i < r.slotCompat.size(); i++) buf.writeString(r.slotCompat.get(i));
             r.slotCompat.forEach(buf::writeString);
             buf.writeByte(r.upgradesToAdd.size());
             r.upgradesToAdd.forEach(u -> { buf.writeString(u.getLeft().toString());buf.writeByte(u.getRight()); });
