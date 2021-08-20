@@ -9,8 +9,5 @@
   },
   "upCost": 2,
   "slots": ["right_arm","left_arm"],
-  "addFlags": {"toastermod:strength": 1},
-  "result": {
-    "item": "minecraft:netherite_pickaxe"
-  }
+  "addUpgrades": {"toastermod:strength": 1}
 }

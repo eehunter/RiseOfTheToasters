@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Objects;
 
 public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addition, List<Pair<Identifier, LevelPredicate>> upgradePrerequisites, int UPCost, List<String> slotCompat, List<Pair<Identifier, Integer>> upgradesToAdd) implements Recipe<Inventory> {
 
@@ -31,9 +31,7 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
         //Upgrade Points
         if (ld.contains("up")&&UPCost > ld.getInt("up"))return false;
         NbtCompound up = ld.getCompound("upgrades");
-        //if((up==null || up.isEmpty()) && !(upgradePrerequisites.size()==0))return false;
-        Stream<Pair<Identifier, LevelPredicate>> stream = upgradePrerequisites.stream();
-        return (up==null||(stream.map(Pair::getLeft).map(Identifier::toString).allMatch(up::contains)&&stream.allMatch(p->p.getRight().test(up.getInt(p.getLeft().toString())))))&&limb.test(l.stack())&&this.addition.test(inventory.getStack(1));
+        return (up==null||upgradePrerequisites.stream().allMatch(p->p.getRight().test(Objects.requireNonNullElse(up.getInt(p.getLeft().toString()), 0))))&&limb.test(l.stack())&&this.addition.test(inventory.getStack(1));
     }
 
 
@@ -101,13 +99,13 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
             Ingredient limb = Ingredient.fromPacket(buf);
             Ingredient addition = Ingredient.fromPacket(buf);
             List<Pair<Identifier, LevelPredicate>> prerequisites = new ArrayList<>();
-            for(byte i=0,j=buf.readByte();i<j;i++) prerequisites.add(new Pair<>(new Identifier(buf.readString()),new LevelPredicate(buf.readString())));
-            int upCost=buf.readByte();
+            for (byte i = 0, j = buf.readByte(); i < j; i++) prerequisites.add(new Pair<>(new Identifier(buf.readString()), new LevelPredicate(buf.readString())));
+            int upCost = buf.readShort();
             List<String> slots = new ArrayList<>();
             byte slotListLen = buf.readByte();
-            for(byte i = 0; i < slotListLen; i++) slots.add(buf.readString());
+            for (byte i = 0; i < slotListLen; i++) slots.add(buf.readString());
             List<Pair<Identifier, Integer>> addUpgrades = new ArrayList<>();
-            for(byte i=0,j=buf.readByte();i<j;i++) addUpgrades.add(new Pair<>(new Identifier(buf.readString()),(int)buf.readByte()));
+            for (byte i = 0, j = buf.readByte(); i < j; i++) addUpgrades.add(new Pair<>(new Identifier(buf.readString()), (int) buf.readByte()));
             return new LimbForgingRecipe(id, limb, addition, prerequisites, upCost, slots, addUpgrades);
         }
 
@@ -116,12 +114,13 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addit
             r.limb.write(buf);
             r.addition.write(buf);
             buf.writeByte(r.upgradePrerequisites.size());
-            r.upgradePrerequisites.forEach(p->{buf.writeString(p.getLeft().toString());buf.writeString(p.getRight().s);});
+            r.upgradePrerequisites.forEach(p -> { buf.writeString(p.getLeft().toString());buf.writeString(p.getRight().s); });
             buf.writeShort(r.UPCost);
             buf.writeByte(r.slotCompat.size());
+            //for (byte i = 0; i < r.slotCompat.size(); i++) buf.writeString(r.slotCompat.get(i));
             r.slotCompat.forEach(buf::writeString);
             buf.writeByte(r.upgradesToAdd.size());
-            r.upgradesToAdd.forEach(u->{buf.writeString(u.getLeft().toString()); buf.writeByte(u.getRight());});
+            r.upgradesToAdd.forEach(u -> { buf.writeString(u.getLeft().toString());buf.writeByte(u.getRight()); });
         }
     }
 
