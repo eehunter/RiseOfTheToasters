@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "toastermod:item/leg_outline",
+    "layer1": "toastermod:item/leg_trim",
+    "layer2": "toastermod:item/arm_leg_fur"
+  }
+}

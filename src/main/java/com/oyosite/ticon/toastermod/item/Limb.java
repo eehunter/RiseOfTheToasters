@@ -1,5 +1,6 @@
 package com.oyosite.ticon.toastermod.item;
 
+import com.oyosite.ticon.toastermod.client.ProtoModelController;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Vec2f;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -40,7 +42,6 @@ public record Limb(ItemStack stack) {
         List<String> otpt = new ArrayList<>();
         NbtCompound limbData = getCompleteLimbData();
         if (limbData.contains("slots")) limbData.getList("slots", 8).stream().map(NbtElement::asString).forEach(otpt::add);
-        otpt.add(RIGHT_ARM);
         return otpt;
     }
 
@@ -88,6 +89,11 @@ public record Limb(ItemStack stack) {
         otpt.copyFrom(getStatic());
         if (stack.getSubNbt("limb_data") != null) otpt.copyFrom(stack.getSubNbt("limb_data"));
         return otpt;
+    }
+
+    @Nullable
+    public ProtoModelController getModelController(){
+        return null;
     }
 
 

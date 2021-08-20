@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "toastermod:item/colorizer_core",
+    "layer1": "toastermod:item/colorizer_frame"
+  }
+}

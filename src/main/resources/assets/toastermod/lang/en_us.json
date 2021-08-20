@@ -2,6 +2,9 @@
   "category.toastermod.main": "Rise of the Toasters",
   "key.toastermod.limb_gui": "Open Limb Configuration Menu",
   "block.toastermod.limb_forge": "Cyberforge",
-  "item.toastermod.test_arm.name": "Test Arm",
+  "item.toastermod.arm": "Cybernetic Arm",
+  "item.toastermod.leg": "Cybernetic Leg",
+  "item.toastermod.tail": "Cybernetic Tail",
+  "item.toastermod.colorizer": "Colorizer",
   "container.cyberforge": "Cyberforge"
 }

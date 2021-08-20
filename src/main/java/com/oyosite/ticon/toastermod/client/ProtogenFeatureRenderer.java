@@ -2,6 +2,7 @@ package com.oyosite.ticon.toastermod.client;
 
 import com.oyosite.ticon.toastermod.component.EntityEntrypoint;
 import com.oyosite.ticon.toastermod.component.ProtogenComponent;
+import com.oyosite.ticon.toastermod.item.Limb;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -17,6 +18,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -69,6 +71,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
         modelProvider.setLivingAnimations(protoModelController, this.getUniqueID(protoModelController), animEvent);
         this.fitToBiped();
         stack.push();
+        EntityEntrypoint.PROTO_COMP.get(livingEntity).getLimbs().forEach((s, is)->renderLimb(partialTicks, stack, bufferIn, packedLightIn, s, is));
         for (Pair<String, Identifier> tex : protoModelController.getTextures()==null?ProtoModelController.DefaultImpl.texLocs:protoModelController.getTextures()){
             int j = EntityEntrypoint.PROTO_COMP.get(livingEntity).getPackedColorForTextureLayer(tex.getLeft());
             float f = (float)(j >> 16 & 255) / 255.0F, g = (float)(j >> 8 & 255) / 255.0F, h = (float)(j & 255) / 255.0F;
@@ -81,6 +84,13 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
         stack.scale(-1.0F, -1.0F, 1.0F);
         stack.translate(0.0D, -1.501F, 0.0D);
     }
+
+    public void renderLimb(float partialTicks, MatrixStack stack, VertexConsumerProvider bufferIn, int packedLightIn, String slot, ItemStack limbStack) {
+        Limb limb = new Limb(limbStack);
+        if (!limb.isValid()) return;
+
+    }
+
 
     @Override
     public GeoModelProvider getGeoModelProvider() {

@@ -65,11 +65,6 @@ public class Util {
             Limb l = new Limb(comp.getLimb(player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM));
             if (l.isValid()) l.onUse(player, player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM);
         });
-        NbtCompound nbt = new NbtCompound();
-        nbt.put("slots", toNBTStringList(Limb.RIGHT_ARM, Limb.LEFT_ARM));
-        nbt.putString("use", "toastermod:limbs/use");
-        nbt.putInt("up", 2);
-        Limb.STATIC_NBT.put("test_arm", nbt);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener(){
             @Override public Identifier getFabricId() { return new Identifier(ToasterMod.MODID, "limb_data"); }
             @Override public void reload(ResourceManager manager) {

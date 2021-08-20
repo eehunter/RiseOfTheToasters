@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:stone"
+    "toastermod:arm",
+    "toastermod:leg",
+    "toastermod:tail"
   ]
 }
