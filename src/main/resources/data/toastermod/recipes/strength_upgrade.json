@@ -3,13 +3,13 @@
   "limb": {
     "tag": "toastermod:valid_limb"
   },
-  "prerequisites": {},
+  "prerequisites": {"toastermod:strength": "<=0"},
   "addition": {
     "item": "minecraft:netherite_ingot"
   },
   "upCost": 2,
   "slots": ["right_arm","left_arm"],
-  "addFlags": {"strength": 1},
+  "addFlags": {"toastermod:strength": 1},
   "result": {
     "item": "minecraft:netherite_pickaxe"
   }

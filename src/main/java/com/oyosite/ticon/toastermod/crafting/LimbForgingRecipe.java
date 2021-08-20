@@ -1,13 +1,12 @@
 package com.oyosite.ticon.toastermod.crafting;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.oyosite.ticon.toastermod.block.BlockRegistry;
 import com.oyosite.ticon.toastermod.item.Limb;
+import com.oyosite.ticon.toastermod.item.Upgrade.LevelPredicate;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.PacketByteBuf;
@@ -19,32 +18,31 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Stream;
 
-public record LimbForgingRecipe(Identifier id, Ingredient limb, JsonObject flags, Ingredient addition, int UPCost, List<String> slotCompat, ItemStack result, JsonObject addFlags) implements Recipe<Inventory> {
+public record LimbForgingRecipe(Identifier id, Ingredient limb, Ingredient addition, List<Pair<Identifier, LevelPredicate>> upgradePrerequisites, int UPCost, List<String> slotCompat, List<Pair<Identifier, Integer>> upgradesToAdd) implements Recipe<Inventory> {
 
     public static final RecipeType<LimbForgingRecipe> TYPE = new RecipeType<>(){};
 
     @Override
-    @SuppressWarnings("ConstantConditions")
     public boolean matches(Inventory inventory, World world) {
         Limb l = new Limb(inventory.getStack(0));
         NbtCompound ld = l.getCompleteLimbData();
         //Upgrade Points
         if (ld.contains("up")&&UPCost > ld.getInt("up"))return false;
         NbtCompound up = ld.getCompound("upgrades");
-        if((up==null || up.isEmpty()) && !(flags.size()==0))return false;
-        Stream<String> keyStream = flags.entrySet().stream().map(Map.Entry::getKey);
-        return (up == null || (keyStream.allMatch(up::contains)&&keyStream.allMatch(key->up.contains(key)&&Objects.equals(flags.get(key).toString(), up.get(key).asString())))) && this.limb.test(l.stack()) && this.addition.test(inventory.getStack(1));
+        //if((up==null || up.isEmpty()) && !(upgradePrerequisites.size()==0))return false;
+        Stream<Pair<Identifier, LevelPredicate>> stream = upgradePrerequisites.stream();
+        return (up==null||(stream.map(Pair::getLeft).map(Identifier::toString).allMatch(up::contains)&&stream.allMatch(p->p.getRight().test(up.getInt(p.getLeft().toString())))))&&limb.test(l.stack())&&this.addition.test(inventory.getStack(1));
     }
+
+
 
     @Override
     public ItemStack craft(Inventory inventory) {
         ItemStack stack = inventory.getStack(0).copy();
         NbtCompound up = new NbtCompound();
-        addFlags.entrySet().stream().map(e-> new Pair<>(e.getKey(), Integer.parseInt(e.getValue().toString()))).forEach(p->up.putInt(p.getLeft(),p.getRight()));
+        upgradesToAdd.forEach(p->up.putInt(p.getLeft().toString(),p.getRight()));
         NbtCompound limb_data = stack.getOrCreateSubNbt("limb_data"), completeLimbData = new Limb(stack).getCompleteLimbData();
         int upgPts = completeLimbData.contains("up", NbtElement.INT_TYPE)?completeLimbData.getInt("up"):2;
         limb_data.putInt("up", upgPts-UPCost);
@@ -84,40 +82,46 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, JsonObject flags
         @Override
         public LimbForgingRecipe read(Identifier id, JsonObject json) {
             Ingredient limb = Ingredient.fromJson(JsonHelper.getObject(json, "limb"));
-            JsonObject prerequisites = json.getAsJsonObject("prerequisites");
             Ingredient addition = Ingredient.fromJson(JsonHelper.getObject(json, "addition"));
+            List<Pair<Identifier, LevelPredicate>> prerequisites = new ArrayList<>();
+            JsonObject prq = json.getAsJsonObject("prerequisites");
+            prq.entrySet().forEach(e->prerequisites.add(new Pair<>(new Identifier(e.getKey()), new LevelPredicate(e.getValue().getAsString()))));
             int upCost = json.get("upCost").getAsInt();
             List<String> slots = new ArrayList<>();
-            json.getAsJsonArray("slots").forEach(e->slots.add(e.getAsString()));
-            ItemStack result = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-            JsonObject addFlags = json.getAsJsonObject("addFlags");
-            return new LimbForgingRecipe(id, limb, prerequisites, addition, upCost, slots, result, addFlags);
+            if(json.has("slots")) json.getAsJsonArray("slots").forEach(e -> slots.add(e.getAsString()));
+            else slots.addAll(ImmutableList.of(Limb.RIGHT_ARM,Limb.LEFT_ARM,Limb.LEFT_LEG,Limb.RIGHT_LEG,Limb.TAIL));
+            JsonObject addUpgradesJson = json.getAsJsonObject("addUpgrades");
+            List<Pair<Identifier, Integer>> addUpgrades = new ArrayList<>();
+            addUpgradesJson.entrySet().forEach(e->addUpgrades.add(new Pair<>(new Identifier(e.getKey()), e.getValue().getAsInt())));
+            return new LimbForgingRecipe(id, limb, addition, prerequisites, upCost, slots, addUpgrades);
         }
 
         @Override
         public LimbForgingRecipe read(Identifier id, PacketByteBuf buf) {
             Ingredient limb = Ingredient.fromPacket(buf);
-            JsonObject prerequisites = JsonHelper.deserialize(buf.readString());
             Ingredient addition = Ingredient.fromPacket(buf);
-            int upCost= buf.readByte();
+            List<Pair<Identifier, LevelPredicate>> prerequisites = new ArrayList<>();
+            for(byte i=0,j=buf.readByte();i<j;i++) prerequisites.add(new Pair<>(new Identifier(buf.readString()),new LevelPredicate(buf.readString())));
+            int upCost=buf.readByte();
             List<String> slots = new ArrayList<>();
-            short slotListLen = buf.readShort();
-            for(short i = 0; i < slotListLen; i++) slots.add(buf.readString());
-            ItemStack result = buf.readItemStack();
-            JsonObject addFlags = JsonHelper.deserialize(buf.readString());
-            return new LimbForgingRecipe(id, limb, prerequisites, addition, upCost, slots, result, addFlags);
+            byte slotListLen = buf.readByte();
+            for(byte i = 0; i < slotListLen; i++) slots.add(buf.readString());
+            List<Pair<Identifier, Integer>> addUpgrades = new ArrayList<>();
+            for(byte i=0,j=buf.readByte();i<j;i++) addUpgrades.add(new Pair<>(new Identifier(buf.readString()),(int)buf.readByte()));
+            return new LimbForgingRecipe(id, limb, addition, prerequisites, upCost, slots, addUpgrades);
         }
 
         @Override
         public void write(PacketByteBuf buf, LimbForgingRecipe r) {
             r.limb.write(buf);
-            buf.writeString(r.flags.toString());
             r.addition.write(buf);
-            buf.writeByte(r.UPCost);
-            buf.writeShort(r.slotCompat.size());
-            for(short i = 0; i < r.slotCompat.size(); i++) buf.writeString(r.slotCompat.get(i));
-            buf.writeString(r.addFlags.toString());
-            buf.writeItemStack(r.result);
+            buf.writeByte(r.upgradePrerequisites.size());
+            r.upgradePrerequisites.forEach(p->{buf.writeString(p.getLeft().toString());buf.writeString(p.getRight().s);});
+            buf.writeShort(r.UPCost);
+            buf.writeByte(r.slotCompat.size());
+            r.slotCompat.forEach(buf::writeString);
+            buf.writeByte(r.upgradesToAdd.size());
+            r.upgradesToAdd.forEach(u->{buf.writeString(u.getLeft().toString()); buf.writeByte(u.getRight());});
         }
     }
 

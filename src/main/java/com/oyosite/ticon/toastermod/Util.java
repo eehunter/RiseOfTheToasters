@@ -109,7 +109,7 @@ public class Util {
                         TriConsumer<LivingEntity, String, Integer> limbEffectConsumer = getLimbEffectConsumerFromJson(a.get(i).getAsJsonObject());
                         if(limbEffectConsumer!=null)l.add(limbEffectConsumer);
                     } catch (Exception exception){ exception.printStackTrace(); }
-                    tickLevels.add(new Pair<>(Upgrade.levelPredicate(e.getKey()), (x,y,z)->l.forEach(c->c.accept(x,y,z))));
+                    tickLevels.add(new Pair<>(new Upgrade.LevelPredicate(e.getKey()), (x,y,z)->l.forEach(c->c.accept(x,y,z))));
                 } catch (Exception exception){
                     exception.printStackTrace();
                 }

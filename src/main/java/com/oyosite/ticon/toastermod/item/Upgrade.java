@@ -16,24 +16,32 @@ public interface Upgrade {
     void onHit(LivingEntity e, String slot, int level);
     void onUse(LivingEntity e, String slot, int level);
 
-    static Predicate<Integer> levelPredicate(String s){
-        int n;
-        if(s.startsWith("<=")){
-            n = Integer.parseInt(s.substring(2));
-            return i->i<=n;
-        } else if (s.startsWith(">=")) {
-            n = Integer.parseInt(s.substring(2));
-            return i->i>=n;
-        } else if(s.startsWith("<")){
-            n = Integer.parseInt(s.substring(1));
-            return i->i<n;
-        } else if (s.startsWith(">")) {
-            n = Integer.parseInt(s.substring(1));
-            return i->i>n;
-        } else {
-            n = Integer.parseInt(s);
-            return i->i==n;
+    class LevelPredicate implements Predicate<Integer>{
+        private final Predicate<Integer> test;
+        public final String s;
+        public LevelPredicate(String s) {
+            this.s = s;
+            int n;
+            if (s.startsWith("<=")) {
+                n = Integer.parseInt(s.substring(2));
+                test = i -> i <= n;
+            } else if (s.startsWith(">=")) {
+                n = Integer.parseInt(s.substring(2));
+                test = i -> i >= n;
+            } else if (s.startsWith("<")) {
+                n = Integer.parseInt(s.substring(1));
+                test = i -> i < n;
+            } else if (s.startsWith(">")) {
+                n = Integer.parseInt(s.substring(1));
+                test = i -> i > n;
+            } else {
+                n = Integer.parseInt(s);
+                test = i -> i == n;
+            }
         }
+
+        @Override
+        public boolean test(Integer i) { return test.test(i); }
     }
 
     record Basic(@Nullable TriConsumer<LivingEntity,String,Integer> tick, @Nullable TriConsumer<LivingEntity,String,Integer> onBreak, @Nullable TriConsumer<LivingEntity,String,Integer> onHit, @Nullable TriConsumer<LivingEntity,String,Integer> onUse) implements Upgrade{
