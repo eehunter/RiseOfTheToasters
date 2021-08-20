@@ -51,13 +51,13 @@ public class LimbForgingScreenHandler extends ForgingScreenHandler {
 
     @Override
     public void updateResult() {
-        List<LimbForgingRecipe> list = this.world.getRecipeManager().getAllMatches(LimbForgingRecipe.TYPE, this.input, this.world);
+        /*List<LimbForgingRecipe> list = this.world.getRecipeManager().getAllMatches(LimbForgingRecipe.TYPE, this.input, this.world);
         if (list.isEmpty()) this.output.setStack(0, ItemStack.EMPTY);
         else {
             this.currentRecipe = list.get(0);
             ItemStack itemStack = this.currentRecipe.craft(this.input);
             this.output.setLastRecipe(this.currentRecipe);
             this.output.setStack(0, itemStack);
-        }
+        }*/
     }
 }

@@ -38,7 +38,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -66,15 +65,11 @@ public class Util {
             Limb l = new Limb(comp.getLimb(player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM));
             if (l.isValid()) l.onUse(player, player.getMainArm()==Arm.RIGHT?Limb.RIGHT_ARM:Limb.LEFT_ARM);
         });
-        UseItemCallback.EVENT.register((player, world, hand)->{
-            if (world.isClient()) ClientPlayNetworking.send(new Identifier(ToasterMod.MODID, "use"), PacketByteBufs.empty());
-            return TypedActionResult.pass(ItemStack.EMPTY);
-        });
-        NbtCompound nbt = new NbtCompound();
+        /*NbtCompound nbt = new NbtCompound();
         nbt.put("slots", toNBTStringList(Limb.RIGHT_ARM, Limb.LEFT_ARM));
         nbt.putString("use", "toastermod:limbs/use");
         nbt.putInt("up", 2);
-        Limb.STATIC_NBT.put("test_arm", nbt);
+        Limb.STATIC_NBT.put("test_arm", nbt);*/
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener(){
             @Override public Identifier getFabricId() { return new Identifier(ToasterMod.MODID, "limb_data"); }
             @Override public void reload(ResourceManager manager) {

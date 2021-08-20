@@ -34,7 +34,7 @@ public class BlockRegistry {
     public static <I extends Block> I r(String id, I block){ return r(id, block, new FabricItemSettings()); }
     public static void register(){
         for(String key : BLOCK_REGISTRY.keySet()) Registry.register(Registry.BLOCK, new Identifier(ToasterMod.MODID, key), BLOCK_REGISTRY.get(key));
-        LIMB_FORGING_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, LIMB_FORGE_ID, new LimbForgingRecipe.Serializer());
+        //LIMB_FORGING_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, LIMB_FORGE_ID, new LimbForgingRecipe.Serializer());
     }
 
 }

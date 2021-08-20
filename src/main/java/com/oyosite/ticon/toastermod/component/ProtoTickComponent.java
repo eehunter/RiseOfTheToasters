@@ -24,7 +24,6 @@ public interface ProtoTickComponent extends ServerTickingComponent {
             Map<String,ItemStack> l = comp.getLimbs();
             for(String s : l.keySet()){
                 ItemStack stack = l.get(s);
-                //System.out.println("Ticking real limb: "+(stack.getSubNbt("limb_data")!=null));
                 Limb limb = new Limb(stack);
                 if (limb.isValid()){
                     limb.tick(e, s);

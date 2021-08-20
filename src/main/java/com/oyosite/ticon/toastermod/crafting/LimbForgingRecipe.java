@@ -61,7 +61,7 @@ public record LimbForgingRecipe(Identifier id, Ingredient limb, JsonObject flags
 
     @Override
     public ItemStack getOutput() {
-        return result;
+        return ItemStack.EMPTY;
     }
 
     @Override
