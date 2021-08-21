@@ -1,0 +1,4 @@
+{
+  "textures": {"fur": "toastermod:textures/models/default_protogen_fur.png"},
+  "model": "toastermod:geo/default_proto_model.geo.json"
+}

@@ -24,7 +24,7 @@ public class ItemRegistry {
 
     public static final LimbItem COLORIZER = r("colorizer", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots",Limb.FUR_COLORIZER,Limb.TRIM_COLORIZER,Limb.LIGHT_COLORIZER)));
 
-    public static final LimbItem ARM = r("arm", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots",Limb.LEFT_ARM,Limb.RIGHT_ARM)));
+    public static final LimbItem ARM = r("arm", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots",Limb.LEFT_ARM,Limb.RIGHT_ARM).setString("renderer", "toastermod:test_arm")));
     public static final LimbItem LEG = r("leg", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots",Limb.LEFT_LEG,Limb.RIGHT_LEG)));
     public static final LimbItem TAIL = r("tail", new LimbItem(new FabricItemSettings().group(ItemGroup.MISC), new NBTBuilder().setStringList("slots",Limb.TAIL)));
 

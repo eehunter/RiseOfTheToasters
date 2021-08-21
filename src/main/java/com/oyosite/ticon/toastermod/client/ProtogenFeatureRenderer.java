@@ -1,5 +1,7 @@
 package com.oyosite.ticon.toastermod.client;
 
+import com.google.common.collect.ImmutableList;
+import com.oyosite.ticon.toastermod.ToasterModClient;
 import com.oyosite.ticon.toastermod.component.EntityEntrypoint;
 import com.oyosite.ticon.toastermod.component.ProtogenComponent;
 import com.oyosite.ticon.toastermod.item.Limb;
@@ -19,6 +21,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -33,6 +36,7 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 import software.bernie.geckolib3.util.GeoUtils;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 @SuppressWarnings("rawtypes")
@@ -71,6 +75,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
         modelProvider.setLivingAnimations(protoModelController, this.getUniqueID(protoModelController), animEvent);
         this.fitToBiped();
         stack.push();
+        ImmutableList.of(rightArmBone, leftArmBone, rightLegBone, leftLegBone, "tail").forEach(s->modelProvider.getBone(s).setHidden(false));
         EntityEntrypoint.PROTO_COMP.get(livingEntity).getLimbs().forEach((s, is)->renderLimb(partialTicks, stack, bufferIn, packedLightIn, s, is));
         for (Pair<String, Identifier> tex : protoModelController.getTextures()==null?ProtoModelController.DefaultImpl.texLocs:protoModelController.getTextures()){
             int j = EntityEntrypoint.PROTO_COMP.get(livingEntity).getPackedColorForTextureLayer(tex.getLeft());
@@ -88,7 +93,19 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
     public void renderLimb(float partialTicks, MatrixStack stack, VertexConsumerProvider bufferIn, int packedLightIn, String slot, ItemStack limbStack) {
         Limb limb = new Limb(limbStack);
         if (!limb.isValid()) return;
-
+        NbtCompound limb_data = limb.getCompleteLimbData();
+        if(!limb_data.contains("renderer"))return;
+        Identifier id = new Identifier(limb_data.getString("renderer"));
+        if(!ToasterModClient.LIMB_RENDERERS.containsKey(id))return;
+        Consumer<AnimatedGeoModel<?>> transformConsumer = m->{};
+        switch (slot){
+            case Limb.LEFT_ARM -> {modelProvider.getBone("leftArm").setHidden(true);transformConsumer=m->fitBoneToBiped(leftArmBone, 2, -5, ctxModel.leftArm, m);}
+            case Limb.RIGHT_ARM -> {modelProvider.getBone("rightArm").setHidden(true);transformConsumer=m->fitBoneToBiped(rightArmBone, 2, 5, ctxModel.rightArm, m);}
+            case Limb.LEFT_LEG -> {modelProvider.getBone("leftLeg").setHidden(true);transformConsumer=m->fitBoneToBiped(leftLegBone, 12, -2, ctxModel.leftLeg, m);}
+            case Limb.RIGHT_LEG -> {modelProvider.getBone("rightLeg").setHidden(true);transformConsumer=m->fitBoneToBiped(rightLegBone, 12, 2, ctxModel.rightLeg, m);}
+            case Limb.TAIL -> {modelProvider.getBone("tail").setHidden(true);}
+        }
+        ToasterModClient.LIMB_RENDERERS.get(id).render(partialTicks,stack,bufferIn,packedLightIn,slot,limbStack,livingEntity,transformConsumer);
     }
 
 
@@ -102,8 +119,24 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
         return defaultProtoTexture;
     }
 
+    public static void fitBoneToBiped(String bone, int yOffset, int xOffset, ModelPart copyFrom, AnimatedGeoModel<?> modelProvider){
+        if (bone != null) {
+            IBone iBone = modelProvider.getBone(bone);
+            GeoUtils.copyRotations(copyFrom, iBone);
+            iBone.setPositionX(copyFrom.pivotX+xOffset);
+            iBone.setPositionY(yOffset-copyFrom.pivotY);
+            iBone.setPositionZ(copyFrom.pivotZ);
+        }
+    }
+
     private void fitToBiped() {
-        if (this.headBone != null) {
+        fitBoneToBiped(this.headBone, 0, 0, ctxModel.head, modelProvider);
+        fitBoneToBiped(this.bodyBone, 0, 0, ctxModel.body, modelProvider);
+        fitBoneToBiped(this.rightArmBone, 2, 5, ctxModel.rightArm, modelProvider);
+        fitBoneToBiped(this.leftArmBone, 2, -5, ctxModel.leftArm, modelProvider);
+        fitBoneToBiped(this.rightLegBone, 12, 2, ctxModel.rightLeg, modelProvider);
+        fitBoneToBiped(this.leftLegBone, 12, -2, ctxModel.leftLeg, modelProvider);
+        /*if (this.headBone != null) {
             IBone headBone = this.modelProvider.getBone(this.headBone);
             GeoUtils.copyRotations(ctxModel.head, headBone);
             headBone.setPositionX(ctxModel.head.pivotX);
@@ -144,7 +177,7 @@ public class ProtogenFeatureRenderer<T extends ProtoModelController> extends Bip
             leftLegBone.setPositionX(ctxModel.leftLeg.pivotX - 2);
             leftLegBone.setPositionY(12 - ctxModel.leftLeg.pivotY);
             leftLegBone.setPositionZ(ctxModel.leftLeg.pivotZ);
-        }
+        }*/
     }
 
     public static class Feature<T extends LivingEntity> extends FeatureRenderer<T, BipedEntityModel<T>> {
