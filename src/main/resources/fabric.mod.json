@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "riseofthetoasters",
+  "version": "${version}",
+
+  "name": "Rise of the Toasters",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Ned Hunter"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/riseofthetoasters/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.RotT"
+      }
+    ]
+  },
+  "mixins": [
+    "riseofthetoasters.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "fabric-language-kotlin": ">=1.7.0+kotlin.1.6.0"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
