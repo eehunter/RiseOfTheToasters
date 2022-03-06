@@ -21,7 +21,7 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "com.oyosite.ticon.RotT"
+        "value": "com.oyosite.ticon.rott.RotT"
       }
     ]
   },

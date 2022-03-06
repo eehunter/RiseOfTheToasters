@@ -7,5 +7,6 @@ object RotT : ModInitializer {
     const val MODID = "riseofthetoasters"
     override fun onInitialize() {
         Blocks.registerBlocks()
+
     }
 }

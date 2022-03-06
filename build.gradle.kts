@@ -15,13 +15,26 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     mavenCentral()
+    mavenLocal()
+    maven {setUrl("https://maven.blamejared.com")}
+    maven {setUrl("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")}
+    maven {setUrl("https://maven.blamejared.com")}
+    maven {setUrl("https://cfa2.cursemaven.com")}
     maven {
         setUrl("https://jitpack.io")
-        //content { includeGroup("com.github.eehunter") }
+        /*content {
+            includeGroup("com.github.eehunter")
+            includeGroup("com.github.apace100")
+        }*/
     }
+    maven { setUrl("https://ladysnake.jfrog.io/artifactory/mods");name = "Ladysnake Libs" }
+    maven { setUrl("https://maven.shedaniel.me/") }
+    maven { setUrl("https://maven.terraformersmc.com/") }
+    maven { setUrl("https://maven.jamieswhiteshirt.com/libs-release/");content{includeGroup ("com.jamieswhiteshirt")} }
 }
 
 dependencies {
+    fun ExternalModuleDependency.excludeFabric() = exclude ("net.fabricmc")
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
@@ -29,7 +42,12 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
 
-    //modImplementation("com.github.eehunter:FurLib:${property("furlib_version")}")
+    modImplementation("com.github.apace100:apoli:${property("apoli_version")}"){excludeFabric()}
+    include("com.github.apace100:apoli:${property("apoli_version")}"){excludeFabric()}
+    modRuntimeOnly("com.github.apace100:origins-fabric:${property("origins_version")}"){excludeFabric();exclude("com.github.apace100")}
+
+    modImplementation("com.github.eehunter:FurLib:${property("furlib_version")}"){exclude("com.github.apace100")}
+    modImplementation("com.github.eehunter:CyberneticsAPI:${property("cyberlib_version")}"){exclude("com.github.apace100")}
 }
 
 tasks {

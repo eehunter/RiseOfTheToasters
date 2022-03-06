@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "riseofthetoasters:block/high_tech_slab"
+    },
+    "type=double": {
+      "model": "riseofthetoasters:block/high_tech_planks"
+    },
+    "type=top": {
+      "model": "riseofthetoasters:block/high_tech_slab_top"
+    }
+  }
+}
