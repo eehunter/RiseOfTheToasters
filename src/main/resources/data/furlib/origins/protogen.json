@@ -1,0 +1,12 @@
+{
+  "powers": [
+    "furlib:protogen",
+    "riseofthetoasters:protogen_cyberware_power"
+  ],
+  "icon": {
+    "item": "minecraft:iron_ingot"
+  },
+  "order": 1,
+  "impact": 0,
+  "loading_priority": 1
+}

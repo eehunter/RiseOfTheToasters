@@ -1,0 +1,10 @@
+{
+  "type": "cyberlib:cyberware_layer",
+  "slot_data": [
+    ["riseofthetoasters:left_arm", 61, 24, "riseofthetoasters:textures/gui/container/arm_slot.png"],
+    ["riseofthetoasters:right_arm", 97, 24, "riseofthetoasters:textures/gui/container/arm_slot.png"],
+    ["riseofthetoasters:tail", 79, 34, "riseofthetoasters:textures/gui/container/tail_slot.png"],
+    ["riseofthetoasters:left_leg", 70, 52, "riseofthetoasters:textures/gui/container/leg_slot.png"],
+    ["riseofthetoasters:right_leg", 88, 52, "riseofthetoasters:textures/gui/container/leg_slot.png"]
+  ]
+}
