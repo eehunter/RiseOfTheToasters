@@ -1,0 +1,23 @@
+{
+  "type": "furlib:specie",
+  "hidden": true,
+  "model": "furlib:geo/protogen_model.geo.json",
+  "textures": [
+    {
+      "alias": "lights",
+      "tex": "furlib:textures/models/protogen_lights.png",
+      "col": "00",
+      "illuminate": true
+    },
+    {
+      "alias": "fur",
+      "tex": "furlib:textures/models/protogen_fur.png",
+      "col": "32 64 32 64 FF 64"
+    },
+    {
+      "alias": "metal",
+      "tex": "furlib:textures/models/protogen_trim.png",
+      "col": "C8"
+    }
+  ]
+}

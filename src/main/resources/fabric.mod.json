@@ -23,6 +23,12 @@
         "adapter": "kotlin",
         "value": "com.oyosite.ticon.rott.RotT"
       }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.rott.RotTClient"
+      }
     ]
   },
   "mixins": [

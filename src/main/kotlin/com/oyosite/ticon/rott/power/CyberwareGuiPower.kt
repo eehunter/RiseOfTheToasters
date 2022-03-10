@@ -24,6 +24,7 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
+import java.util.function.BiFunction
 
 class CyberwareGuiPower(type: PowerType<*>, entity: LivingEntity, val translationKey: String, val powerId: Identifier): Power(type, entity), Active {
 
@@ -48,5 +49,5 @@ class CyberwareGuiPower(type: PowerType<*>, entity: LivingEntity, val translatio
         }
     }
 
-    fun createFactory():PowerFactory<CyberwareGuiPower> = PowerFactory(Identifier("$MODID:cyberware_gui"), SDKotlin("title", SerializableDataTypes.STRING, "container.inventory")("key", ApoliDataTypes.KEY, Key())){data -> {type, entity -> CyberwareGuiPower().key()}}
+    fun createFactory():PowerFactory<CyberwareGuiPower> = PowerFactory(Identifier("$MODID:cyberware_gui"), SDKotlin("title", SerializableDataTypes.STRING, "container.inventory")("key", ApoliDataTypes.KEY, Key())("target_power_id",SerializableDataTypes.IDENTIFIER)){data -> BiFunction{ type, entity -> CyberwareGuiPower(type, entity, data.getString("title"), data.getId("target_power_id")).key(data.get("key"))}}
 }

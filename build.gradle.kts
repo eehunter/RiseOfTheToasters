@@ -31,6 +31,7 @@ repositories {
     maven { setUrl("https://maven.shedaniel.me/") }
     maven { setUrl("https://maven.terraformersmc.com/") }
     maven { setUrl("https://maven.jamieswhiteshirt.com/libs-release/");content{includeGroup ("com.jamieswhiteshirt")} }
+    maven { setUrl("https://maven.bai.lol") }
 }
 
 dependencies {
@@ -48,6 +49,8 @@ dependencies {
 
     modImplementation("com.github.eehunter:FurLib:${property("furlib_version")}"){exclude("com.github.apace100")}
     modImplementation("com.github.eehunter:CyberneticsAPI:${property("cyberlib_version")}"){exclude("com.github.apace100")}
+
+    modRuntimeOnly("mcp.mobius.waila:wthit:fabric-${property("wthit_version")}")
 }
 
 tasks {
