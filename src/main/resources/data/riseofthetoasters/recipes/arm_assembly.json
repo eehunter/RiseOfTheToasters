@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PNP",
+    "MBM",
+    "WMW"
+  ],
+  "key": {
+    "P": {"item": "riseofthetoasters:high_tech_plate"},
+    "N": {"item": "riseofthetoasters:nanite_dust"},
+    "M": {"tag": "c:raw_meat"},
+    "B": {"tag": "c:bones"},
+    "W": {"tag": "c:wools"}
+  },
+  "result": {
+    "item": "riseofthetoasters:arm_assembly"
+  }
+}

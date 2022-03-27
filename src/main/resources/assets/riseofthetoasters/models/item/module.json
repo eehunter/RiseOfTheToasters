@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "riseofthetoasters:item/module_frame",
+    "layer1": "riseofthetoasters:item/module_core"
+  }
+}

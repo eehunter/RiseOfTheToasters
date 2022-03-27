@@ -47,10 +47,10 @@ dependencies {
     include("com.github.apace100:apoli:${property("apoli_version")}"){excludeFabric()}
     modRuntimeOnly("com.github.apace100:origins-fabric:${property("origins_version")}"){excludeFabric();exclude("com.github.apace100")}
 
-    modImplementation("com.github.eehunter:FurLib:${property("furlib_version")}"){exclude("com.github.apace100")}
+    modImplementation("com.github.eehunter:FurLib:${property("furlib_version")}"){exclude("com.github.apace100");exclude("com.github.qouteall.ImmersivePortalsMod")}
     modImplementation("com.github.eehunter:CyberneticsAPI:${property("cyberlib_version")}"){exclude("com.github.apace100")}
 
-    modRuntimeOnly("mcp.mobius.waila:wthit:fabric-${property("wthit_version")}")
+    //modRuntimeOnly("mcp.mobius.waila:wthit:fabric-${property("wthit_version")}")
 }
 
 tasks {

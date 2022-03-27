@@ -5,14 +5,14 @@
   "textures": [
     {
       "alias": "lights",
-      "tex": "furlib:textures/models/protogen_lights.png",
-      "col": "00",
+      "tex": "riseofthetoasters:textures/models/undead_protogen_lights.png",
+      "col": "600000 FF0000",
       "illuminate": true
     },
     {
       "alias": "fur",
       "tex": "furlib:textures/models/protogen_fur.png",
-      "col": "32 64 32 64 FF 64"
+      "col": "224400 44AA12"
     },
     {
       "alias": "metal",
