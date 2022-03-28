@@ -1,0 +1,22 @@
+{
+  "entity.zombie_toaster.ambient": {
+    "subtitle": "subtitles.riseofthetoasters.entity.zombie_toaster.ambient",
+    "sounds": [
+      "riseofthetoasters:creepy_dial_up",
+      "riseofthetoasters:creepy_dial_up_2",
+      "riseofthetoasters:creepy_dial_up_3"
+    ]
+  },
+  "entity.zombie_toaster.hurt": {
+    "subtitle": "subtitles.riseofthetoasters.entity.zombie_toaster.hurt",
+    "sounds": [
+      "riseofthetoasters:zombie_toaster_hurt"
+    ]
+  },
+  "entity.zombie_toaster.death": {
+    "subtitle": "subtitles.riseofthetoasters.entity.zombie_toaster.death",
+    "sounds": [
+      "riseofthetoasters:zombie_toaster_death"
+    ]
+  }
+}

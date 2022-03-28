@@ -18,7 +18,7 @@ import java.util.function.Consumer
 object Blocks {
     val BLOCKS = mutableListOf<Triple<Block,String,FabricItemSettings>>()
 
-    val GROUP = FabricItemGroupBuilder.create(Identifier("$MODID:blocks")).icon{ItemStack(HIGH_TECH_PLATING.asItem())}.appendItems(Consumer{ l -> BLOCKS.forEach { t -> l.add(ItemStack(t.first.asItem())) } }).build()
+    val GROUP = FabricItemGroupBuilder.create(Identifier("$MODID:blocks")).icon{ItemStack(HIGH_TECH_PLATING.asItem())}.appendItems { l -> BLOCKS.forEach { t -> l.add(ItemStack(t.first.asItem())) } }.build()
 
     val HIGH_TECH_PLATING = Block(BlockSettings.of(Material.METAL, MapColor.BLACK)).register("high_tech_plating")
     val HIGH_TECH_PLATING_STAIRS = object: StairsBlock(HIGH_TECH_PLATING.defaultState, BlockSettings.copy(HIGH_TECH_PLATING)){}.register("high_tech_stairs")

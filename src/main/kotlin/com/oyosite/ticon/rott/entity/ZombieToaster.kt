@@ -2,6 +2,7 @@ package com.oyosite.ticon.rott.entity
 
 import com.oyosite.ticon.rott.RotT.MODID
 import com.oyosite.ticon.rott.entity.ai.goal.ZombieToasterAttackGoal
+import com.oyosite.ticon.rott.sound.RotTSoundEvents
 import io.github.apace100.apoli.component.PowerHolderComponent
 import io.github.apace100.apoli.power.PowerTypeRegistry
 import net.minecraft.entity.EntityData
@@ -10,12 +11,14 @@ import net.minecraft.entity.SpawnReason
 import net.minecraft.entity.ai.goal.*
 import net.minecraft.entity.attribute.DefaultAttributeContainer
 import net.minecraft.entity.attribute.EntityAttributes.*
+import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.mob.HostileEntity
 import net.minecraft.entity.mob.ZombifiedPiglinEntity
 import net.minecraft.entity.passive.IronGolemEntity
 import net.minecraft.entity.passive.MerchantEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.sound.SoundEvent
 import net.minecraft.util.Identifier
 import net.minecraft.world.LocalDifficulty
 import net.minecraft.world.ServerWorldAccess
@@ -50,6 +53,9 @@ class ZombieToaster(type: EntityType<out ZombieToaster>, world: World) : Hostile
 
     override fun getLootTableId(): Identifier = Identifier("$MODID:entity/zombie_toaster")
 
+    override fun getAmbientSound(): SoundEvent = RotTSoundEvents.ZOMBIE_TOASTER_AMBIENT
+    override fun getHurtSound(source: DamageSource?): SoundEvent = RotTSoundEvents.ZOMBIE_TOASTER_HURT
+    override fun getDeathSound(): SoundEvent = RotTSoundEvents.ZOMBIE_TOASTER_DEATH
     /*
     private val factory = AnimationFactory(this)
 

@@ -1,0 +1,19 @@
+{
+  "type": "cyberlib:cyber_forge",
+  "prerequisites": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:arm"
+    }
+  },
+  "addition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:strength_module"
+    }
+  },
+  "outputAction": {
+    "type": "cyberlib:nbt_merge",
+    "data": "{cyberdata:{powers:[\"riseofthetoasters:attack_damage_1\"]}}"
+  }
+}

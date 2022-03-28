@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "riseofthetoasters:item/tail_fur",
+    "layer1": "riseofthetoasters:item/tail_trim",
+    "layer2": "riseofthetoasters:item/tail_outline"
+  }
+}

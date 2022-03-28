@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "riseofthetoasters:block/cracked_high_tech_plating"
+  }
+}
