@@ -1,0 +1,18 @@
+{
+  "type": "apoli:modify_break_speed",
+  "block_condition": {
+    "type": "cyberlib:mining_level",
+    "comparison": "<=",
+    "compare_to": 3.0
+  },
+  "condition": {
+    "type": "apoli:using_effective_tool",
+    "inverted": true
+  },
+  "modifier": {
+    "name": "Mining upgrade stone break speed bonus",
+    "value": 0.1,
+    "operation": "addition"
+  },
+  "hidden": true
+}

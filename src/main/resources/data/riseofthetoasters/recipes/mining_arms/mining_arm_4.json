@@ -1,0 +1,32 @@
+{
+  "type": "cyberlib:cyber_forge",
+  "prerequisites": {
+    "type": "apoli:and",
+    "conditions":[
+      {
+        "type": "apoli:ingredient",
+        "ingredient": {"item": "riseofthetoasters:arm"}
+      },
+      {
+        "type": "cyberlib:cyberware_upgrade",
+        "id": "riseofthetoasters:mining_upgrade",
+        "level": 3
+      },
+      {
+        "type": "cyberlib:cyberware_upgrade_points",
+        "compare_to": 1
+      }
+    ]
+  },
+  "addition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "minecraft:iron_pickaxe"
+    }
+  },
+  "outputAction": {
+    "type": "cyberlib:add_upgrade",
+    "id": "riseofthetoasters:mining_upgrade",
+    "level": 4
+  }
+}

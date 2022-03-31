@@ -1,0 +1,9 @@
+{
+  "type": "apoli:attribute",
+  "modifier": {
+    "name": "Extra attack damage",
+    "attribute": "minecraft:generic.attack_damage",
+    "value": 4.0,
+    "operation": "addition"
+  }
+}

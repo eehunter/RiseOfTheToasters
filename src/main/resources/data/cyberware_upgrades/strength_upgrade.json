@@ -1,0 +1,12 @@
+{
+  "levels": [
+    {
+      "up": 2.0,
+      "powers": ["cyberlib:attack_damage_1"]
+    },
+    {
+      "up": 4.0,
+      "powers": ["cyberlib:attack_damage_2"]
+    }
+  ]
+}

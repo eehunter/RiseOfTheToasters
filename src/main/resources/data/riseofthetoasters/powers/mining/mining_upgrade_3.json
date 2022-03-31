@@ -1,0 +1,9 @@
+{
+  "type": "apoli:modify_harvest",
+  "allow": true,
+  "block_condition": {
+    "type": "cyberlib:mining_level",
+    "comparison": "<=",
+    "compare_to": 3.0
+  }
+}
