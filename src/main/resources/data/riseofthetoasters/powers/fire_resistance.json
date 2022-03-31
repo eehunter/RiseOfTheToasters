@@ -1,0 +1,6 @@
+{
+  "type": "apoli:invulnerability",
+  "damage_condition": {
+    "type": "apoli:fire"
+  }
+}

@@ -10,7 +10,7 @@ import net.minecraft.text.TranslatableText
 import net.minecraft.world.World
 
 @Suppress("MemberVisibilityCanBePrivate")
-open class ModuleItem(val col: Int, settings: FabricItemSettings.()->FabricItemSettings): Item(FabricItemSettings().settings()){
+open class ModuleItem(val col: Int, settings: FabricItemSettings.()->FabricItemSettings = {this}): Item(FabricItemSettings().settings()){
     val applicableLimbs = mutableListOf<Text>()
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
         if(applicableLimbs.isNotEmpty()){
@@ -18,6 +18,7 @@ open class ModuleItem(val col: Int, settings: FabricItemSettings.()->FabricItemS
             applicableLimbs.forEach(tooltip::add)
         }
     }
+    fun color(stack: ItemStack) = stack.getSubNbt("module_data")?.getInt("color") ?: col
     companion object{
         fun <T: ModuleItem> T.addLimbs(vararg limbs: String) = addLimbsText(*limbs.map { LiteralText("- ").append(TranslatableText(it)) }.toTypedArray())
         fun <T: ModuleItem> T.addLimbsText(vararg limbs: Text):T { applicableLimbs.addAll(limbs); return this }

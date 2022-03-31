@@ -13,14 +13,14 @@
       },
       {
         "type": "cyberlib:cyberware_upgrade_points",
-        "compare_to": 1
+        "compare_to": 1.0
       }
     ]
   },
   "addition": {
     "type": "apoli:ingredient",
     "ingredient": {
-      "item": "minecraft:stone_pickaxe"
+      "item": "riseofthetoasters:mining_module_1"
     }
   },
   "outputAction": {

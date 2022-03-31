@@ -1,0 +1,9 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+    "name": "Armor upgrade 2 armor bonus",
+    "attribute": "minecraft:generic.armor",
+    "value": 2.0,
+    "operation": "addition"
+  }
+}

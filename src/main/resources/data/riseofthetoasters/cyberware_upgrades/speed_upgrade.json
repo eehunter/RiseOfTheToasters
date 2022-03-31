@@ -1,0 +1,12 @@
+{
+  "levels": [
+    {
+      "up": 2.0,
+      "powers": ["riseofthetoasters:speed/speed_1"]
+    },
+    {
+      "up": 4.0,
+      "powers": ["riseofthetoasters:speed/speed_2"]
+    }
+  ]
+}

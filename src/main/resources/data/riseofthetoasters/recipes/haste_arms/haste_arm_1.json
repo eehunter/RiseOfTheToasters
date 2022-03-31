@@ -9,24 +9,22 @@
       },
       {
         "type": "cyberlib:cyberware_upgrade",
-        "id": "riseofthetoasters:mining_upgrade",
-        "level": 3
+        "id": "riseofthetoasters:haste_upgrade"
       },
       {
         "type": "cyberlib:cyberware_upgrade_points",
-        "compare_to": 1
+        "compare_to": 2
       }
     ]
   },
   "addition": {
     "type": "apoli:ingredient",
     "ingredient": {
-      "item": "riseofthetoasters:mining_module_4"
+      "item": "riseofthetoasters:haste_module"
     }
   },
   "outputAction": {
     "type": "cyberlib:add_upgrade",
-    "id": "riseofthetoasters:mining_upgrade",
-    "level": 4
+    "id": "riseofthetoasters:haste_upgrade"
   }
 }

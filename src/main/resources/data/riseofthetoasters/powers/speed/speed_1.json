@@ -1,0 +1,9 @@
+{
+  "type": "apoli:attribute",
+  "modifier":  {
+    "name": "Speed upgrade 1 bonus",
+    "attribute": "generic.movement_speed",
+    "value": 0.06,
+    "operation": "addition"
+  }
+}

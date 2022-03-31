@@ -21,7 +21,7 @@
   "addition": {
     "type": "apoli:ingredient",
     "ingredient": {
-      "item": "minecraft:iron_pickaxe"
+      "item": "riseofthetoasters:mining_module_2"
     }
   },
   "outputAction": {
