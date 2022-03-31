@@ -6,12 +6,19 @@
     "compare_to": 3.0
   },
   "condition": {
-    "type": "apoli:using_effective_tool",
+    "type": "apoli:or",
+    "conditions": [
+      {"type": "apoli:using_effective_tool"},
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:mining/mining_upgrade_4_break_speed"
+      }
+    ],
     "inverted": true
   },
   "modifier": {
     "name": "Mining upgrade stone break speed bonus",
-    "value": 0.1,
+    "value": 0.075,
     "operation": "addition"
   },
   "hidden": true

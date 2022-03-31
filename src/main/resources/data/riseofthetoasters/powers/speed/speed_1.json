@@ -1,5 +1,10 @@
 {
   "type": "apoli:attribute",
+  "condition": {
+    "type": "apoli:power_active",
+    "power": "riseofthetoasters:speed/speed_2",
+    "inverted": true
+  },
   "modifier":  {
     "name": "Speed upgrade 1 bonus",
     "attribute": "generic.movement_speed",

@@ -1,9 +1,27 @@
 {
   "type": "origins:attribute",
+  "condition": {
+    "type": "apoli:or",
+    "conditions": [
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:armor/armor_2"
+      },
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:armor/armor_3"
+      },
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:armor/armor_4"
+      }
+    ],
+    "inverted": true
+  },
   "modifier": {
     "name": "Armor upgrade 1 armor bonus",
     "attribute": "minecraft:generic.armor",
-    "value": 1.0,
+    "value": 2.0,
     "operation": "addition"
   }
 }

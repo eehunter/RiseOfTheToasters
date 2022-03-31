@@ -6,7 +6,22 @@
     "compare_to": 1.0
   },
   "condition": {
-    "type": "apoli:using_effective_tool",
+    "type": "apoli:or",
+    "conditions": [
+      {"type": "apoli:using_effective_tool"},
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:mining/mining_upgrade_2_break_speed"
+      },
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:mining/mining_upgrade_3_break_speed"
+      },
+      {
+        "type": "apoli:power_active",
+        "power": "riseofthetoasters:mining/mining_upgrade_4_break_speed"
+      }
+    ],
     "inverted": true
   },
   "modifier": {

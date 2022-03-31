@@ -1,8 +1,12 @@
 {
   "type": "apoli:modify_break_speed",
+  "condition": {
+    "type": "apoli:power_active",
+    "power": "riseofthetoasters:haste/break_speed_2"
+  },
   "modifier": {
     "name": "Haste upgrade break speed bonus",
-    "value": 0.06,
+    "value": 0.025,
     "operation": "addition"
   },
   "hidden": true

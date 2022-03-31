@@ -2,7 +2,7 @@
   "type": "apoli:modify_break_speed",
   "modifier": {
     "name": "Haste upgrade break speed bonus",
-    "value": 0.10,
+    "value": 0.05,
     "operation": "addition"
   },
   "hidden": true
