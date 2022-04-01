@@ -59,19 +59,25 @@ object Items {
     val BASIC_LEG = DyeableAugmentItem{maxCount(1)}.register("leg")
     val BASIC_TAIL = DyeableAugmentItem{maxCount(1)}.register("tail")
 
-    val STRENGTH_MODULE = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module")
-    val HASTE_MODULE = ModuleItem(0xD9C043).addLimbs("item.$MODID.arm").register("haste_module")
+    val STRENGTH_MODULE_1 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_1")
+    val STRENGTH_MODULE_2 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_2")
+    val HASTE_MODULE_1 = ModuleItem(0xD9C043).addLimbs("item.$MODID.arm").register("haste_module_1")
+    val HASTE_MODULE_2 = ModuleItem(0xD9C043).addLimbs("item.$MODID.arm").register("haste_module_2")
     val MINING_MODULE_1 = ModuleItem(0x555555).addLimbs("item.$MODID.arm").register("mining_module_1")
     val MINING_MODULE_2 = ModuleItem(0xCCCCCC).addLimbs("item.$MODID.arm").register("mining_module_2")
     val MINING_MODULE_3 = ModuleItem(0x00CCCC).addLimbs("item.$MODID.arm").register("mining_module_3")
     val MINING_MODULE_4 = ModuleItem(0x555555).addLimbs("item.$MODID.arm").register("mining_module_4")
 
-    val SPEED_MODULE = ModuleItem(0x7CAFC6).addLimbs("item.$MODID.leg").register("speed_module")
+    val SPEED_MODULE_1 = ModuleItem(0x7CAFC6).addLimbs("item.$MODID.leg").register("speed_module_1")
+    val SPEED_MODULE_2 = ModuleItem(0x7CAFC6).addLimbs("item.$MODID.leg").register("speed_module_2")
 
-    val ARMOR_MODULE = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module")
+    val ARMOR_MODULE_1 = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module_1")
+    val ARMOR_MODULE_2 = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module_2")
+    val ARMOR_MODULE_3 = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module_3")
+    val ARMOR_MODULE_4 = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module_4")
     val FIRE_RESISTANCE_MODULE = ModuleItem(0xFF8800).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("fire_resistance_module")
 
-    val MODULES = arrayOf(STRENGTH_MODULE, HASTE_MODULE, MINING_MODULE_1, MINING_MODULE_2, MINING_MODULE_3, MINING_MODULE_4, SPEED_MODULE, FIRE_RESISTANCE_MODULE)
+    val MODULES = arrayOf(STRENGTH_MODULE_1, STRENGTH_MODULE_2, HASTE_MODULE_1, HASTE_MODULE_2, MINING_MODULE_1, MINING_MODULE_2, MINING_MODULE_3, MINING_MODULE_4, SPEED_MODULE_1, SPEED_MODULE_2, ARMOR_MODULE_1, FIRE_RESISTANCE_MODULE)
 
     fun registerItems() {
         GROUP

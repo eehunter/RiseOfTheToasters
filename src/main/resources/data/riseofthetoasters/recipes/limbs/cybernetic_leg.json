@@ -1,0 +1,20 @@
+{
+  "type": "cyberlib:cyber_forge",
+  "prerequisites": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:leg_assembly"
+    }
+  },
+  "addition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:high_tech_plate"
+    }
+  },
+  "outputAction": {
+    "type": "cyberlib:nbt_merge",
+    "data": "{cyberdata:{slots:[\"riseofthetoasters:left_leg\",\"riseofthetoasters:right_leg\"]}}"
+  },
+  "new_stack": {"item": "riseofthetoasters:leg"}
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCA",
+    "CRC",
+    "SCP"
+  ],
+  "key": {
+    "C": {"tag": "c:cobblestone"},
+    "R": {"tag": "c:redstone_dusts"},
+    "P": {"item": "minecraft:stone_pickaxe"},
+    "A": {"item": "minecraft:stone_axe"},
+    "S": {"item": "minecraft:stone_shovel"}
+  },
+  "result": {
+    "item": "riseofthetoasters:mining_module_1"
+  }
+}

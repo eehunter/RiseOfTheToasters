@@ -9,8 +9,7 @@
       },
       {
         "type": "cyberlib:cyberware_upgrade",
-        "id": "riseofthetoasters:strength_upgrade",
-        "level": 1
+        "id": "riseofthetoasters:haste_upgrade"
       },
       {
         "type": "cyberlib:cyberware_upgrade_points",
@@ -21,12 +20,11 @@
   "addition": {
     "type": "apoli:ingredient",
     "ingredient": {
-      "item": "riseofthetoasters:strength_module"
+      "item": "riseofthetoasters:haste_module_1"
     }
   },
   "outputAction": {
     "type": "cyberlib:add_upgrade",
-    "id": "riseofthetoasters:strength_upgrade",
-    "level": 2
+    "id": "riseofthetoasters:haste_upgrade"
   }
 }

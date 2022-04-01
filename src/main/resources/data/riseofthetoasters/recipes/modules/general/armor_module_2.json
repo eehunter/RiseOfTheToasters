@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LIL",
+    "IDI",
+    "LIL"
+  ],
+  "key": {
+    "D": {"tag": "c:diamonds"},
+    "L": {"tag": "c:leather"},
+    "I": {"tag": "c:iron_ingots"}
+  },
+  "result": {
+    "item": "riseofthetoasters:armor_module_2"
+  }
+}

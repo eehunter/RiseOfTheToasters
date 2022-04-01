@@ -1,0 +1,20 @@
+{
+  "type": "cyberlib:cyber_forge",
+  "prerequisites": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:tail_assembly"
+    }
+  },
+  "addition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:high_tech_plate"
+    }
+  },
+  "outputAction": {
+    "type": "cyberlib:nbt_merge",
+    "data": "{cyberdata:{slots:[\"riseofthetoasters:tail\"]}}"
+  },
+  "new_stack": {"item": "riseofthetoasters:tail"}
+}

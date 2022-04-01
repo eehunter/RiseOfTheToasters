@@ -5,26 +5,26 @@
     "conditions":[
       {
         "type": "apoli:ingredient",
-        "ingredient": {"item": "riseofthetoasters:arm"}
+        "ingredient": {"tag": "riseofthetoasters:cybernetic_limbs"}
       },
       {
         "type": "cyberlib:cyberware_upgrade",
-        "id": "riseofthetoasters:strength_upgrade"
+        "id": "riseofthetoasters:armor_upgrade"
       },
       {
         "type": "cyberlib:cyberware_upgrade_points",
-        "compare_to": 2
+        "compare_to": 1
       }
     ]
   },
   "addition": {
     "type": "apoli:ingredient",
     "ingredient": {
-      "item": "riseofthetoasters:strength_module"
+      "item": "riseofthetoasters:armor_module_1"
     }
   },
   "outputAction": {
     "type": "cyberlib:add_upgrade",
-    "id": "riseofthetoasters:strength_upgrade"
+    "id": "riseofthetoasters:armor_upgrade"
   }
 }

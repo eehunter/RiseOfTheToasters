@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PIA",
+    "IRI",
+    "SIP"
+  ],
+  "key": {
+    "I": {"tag": "c:iron_ingots"},
+    "R": {"tag": "c:redstone_dusts"},
+    "P": {"item": "minecraft:iron_pickaxe"},
+    "A": {"item": "minecraft:iron_axe"},
+    "S": {"item": "minecraft:iron_shovel"}
+  },
+  "result": {
+    "item": "riseofthetoasters:mining_module_2"
+  }
+}

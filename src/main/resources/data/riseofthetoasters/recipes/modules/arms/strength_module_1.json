@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BRB",
+    "RDR",
+    "BRB"
+  ],
+  "key": {
+    "B": {"tag": "c:blaze_powders"},
+    "R": {"tag": "c:redstone_dusts"},
+    "D": {"tag": "c:diamonds"}
+  },
+  "result": {
+    "item": "riseofthetoasters:strength_module_1"
+  }
+}

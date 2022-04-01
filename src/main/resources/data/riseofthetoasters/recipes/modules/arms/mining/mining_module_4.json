@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PNA",
+    "NRN",
+    "SNP"
+  ],
+  "key": {
+    "N": {"tag": "c:netherite_ingots"},
+    "R": {"tag": "c:redstone_blocks"},
+    "P": {"item": "minecraft:netherite_pickaxe"},
+    "A": {"item": "minecraft:netherite_axe"},
+    "S": {"item": "minecraft:netherite_shovel"}
+  },
+  "result": {
+    "item": "riseofthetoasters:mining_module_4"
+  }
+}
