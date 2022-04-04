@@ -1,10 +1,5 @@
 {
   "type": "apoli:attribute",
-  "condition": {
-    "type": "apoli:power_active",
-    "power": "riseofthetoasters:strength/attack_damage_2",
-    "inverted": true
-  },
   "modifier": {
     "name": "Extra attack damage",
     "attribute": "minecraft:generic.attack_damage",

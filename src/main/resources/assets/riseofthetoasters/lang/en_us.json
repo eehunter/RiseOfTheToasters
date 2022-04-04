@@ -6,5 +6,15 @@
   "item.riseofthetoasters.arcite_crystal": "Arcite Crystal",
   "item.riseofthetoasters.nanite_dust": "Nanite Dust",
   "item.riseofthetoasters.nanite_gel": "Nanite Gel",
-  "item.riseofthetoasters.strength_module": "Strength Module"
+  "item.riseofthetoasters.armor_module_1": "Armor Module I",
+  "item.riseofthetoasters.armor_module_2": "Armor Module II",
+  "item.riseofthetoasters.armor_module_3": "Armor Module III",
+  "item.riseofthetoasters.armor_module_4": "Armor Module IV",
+  "item.riseofthetoasters.haste_module_1": "Haste Module I",
+  "item.riseofthetoasters.haste_module_2": "Haste Module II",
+  "item.riseofthetoasters.fire_resistance_module": "Fire Resistance Module",
+  "item.riseofthetoasters.strength_module_1": "Strength Module I",
+  "item.riseofthetoasters.strength_module_2": "Strength Module II",
+  "item.riseofthetoasters.speed_module_1": "Speed Module I",
+  "item.riseofthetoasters.speed_module_2": "Speed Module II"
 }

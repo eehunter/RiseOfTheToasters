@@ -6,15 +6,15 @@
     },
     {
       "up": 2.0,
-      "powers": ["riseofthetoasters:mining/mining_upgrade_2","riseofthetoasters:mining/mining_upgrade_2_break_speed"]
+      "powers": ["riseofthetoasters:mining/mining_upgrade_2","riseofthetoasters:mining/mining_upgrade_2_break_speed","riseofthetoasters:mining/mining_upgrade_1_break_speed"]
     },
     {
       "up": 3.0,
-      "powers": ["riseofthetoasters:mining/mining_upgrade_3","riseofthetoasters:mining/mining_upgrade_3_break_speed"]
+      "powers": ["riseofthetoasters:mining/mining_upgrade_3","riseofthetoasters:mining/mining_upgrade_3_break_speed","riseofthetoasters:mining/mining_upgrade_2_break_speed","riseofthetoasters:mining/mining_upgrade_1_break_speed"]
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:mining/mining_upgrade_4","riseofthetoasters:mining/mining_upgrade_4_break_speed"]
+      "powers": ["riseofthetoasters:mining/mining_upgrade_4","riseofthetoasters:mining/mining_upgrade_4_break_speed","riseofthetoasters:mining/mining_upgrade_3_break_speed","riseofthetoasters:mining/mining_upgrade_2_break_speed","riseofthetoasters:mining/mining_upgrade_1_break_speed"]
     }
   ]
 }

@@ -3,7 +3,7 @@
   "modifier": {
     "name": "Extra attack damage",
     "attribute": "minecraft:generic.attack_damage",
-    "value": 4.0,
+    "value": 2.0,
     "operation": "addition"
   }
 }

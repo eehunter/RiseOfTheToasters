@@ -10,8 +10,8 @@
     "inverted": true
   },
   "modifier": {
-    "name": "Mining upgrade stone break speed bonus",
-    "value": 0.08,
+    "name": "Netherite mining upgrade break speed bonus",
+    "value": 0.005,
     "operation": "addition"
   },
   "hidden": true

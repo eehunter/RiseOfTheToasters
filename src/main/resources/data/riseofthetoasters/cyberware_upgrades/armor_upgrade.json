@@ -6,15 +6,15 @@
     },
     {
       "up": 2.0,
-      "powers": ["riseofthetoasters:armor/armor_2"]
+      "powers": ["riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
     },
     {
       "up": 3.0,
-      "powers": ["riseofthetoasters:armor/armor_3"]
+      "powers": ["riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:armor/armor_4"]
+      "powers": ["riseofthetoasters:armor/armor_4","riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
     }
   ]
 }

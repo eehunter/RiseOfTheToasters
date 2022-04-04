@@ -6,7 +6,7 @@
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:haste/break_speed_1"]
+      "powers": ["riseofthetoasters:haste/break_speed_2","riseofthetoasters:haste/break_speed_1"]
     }
   ]
 }

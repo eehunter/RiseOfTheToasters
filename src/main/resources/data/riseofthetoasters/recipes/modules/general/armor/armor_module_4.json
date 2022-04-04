@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "SNS",
+    "DSD"
+  ],
+  "key": {
+    "D": {"tag": "c:diamonds"},
+    "S": {"tag": "c:netherite_scraps"},
+    "N": {"tag": "c:netherite_ingots"}
+  },
+  "result": {
+    "item": "riseofthetoasters:armor_module_4"
+  }
+}

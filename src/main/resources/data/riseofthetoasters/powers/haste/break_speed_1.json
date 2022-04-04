@@ -5,9 +5,9 @@
     "power": "riseofthetoasters:haste/break_speed_2"
   },
   "modifier": {
-    "name": "Haste upgrade break speed bonus",
-    "value": 0.025,
-    "operation": "addition"
+    "name": "Haste upgrade 1 break speed bonus",
+    "value": 1.15,
+    "operation": "multiplication"
   },
   "hidden": true
 }

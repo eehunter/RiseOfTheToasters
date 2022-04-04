@@ -28,6 +28,8 @@ object Blocks {
     val CRACKED_HIGH_TECH_PLATING_STAIRS = object: StairsBlock(CRACKED_HIGH_TECH_PLATING.defaultState, BlockSettings.copy(CRACKED_HIGH_TECH_PLATING)){}.register("cracked_high_tech_stairs")
     val CRACKED_HIGH_TECH_PLATING_SLAB = SlabBlock(BlockSettings.copy(CRACKED_HIGH_TECH_PLATING)).register("cracked_high_tech_slab")
 
+    val CYBERFORGE = CyberforgeBlock()
+
     fun registerBlocks() = BLOCKS.forEach{
         Registry.register(Registry.BLOCK, it.second, it.first)
         Registry.register(Registry.ITEM, it.second, BlockItem(it.first, it.third))

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MSM",
+    "SNS",
+    "MSM"
+  ],
+  "key": {
+    "M": {"item": "minecraft:magma_cream"},
+    "N": {"tag": "c:netherite_ingots"},
+    "S": {"tag": "c:netherite_scraps"}
+  },
+  "result": {
+    "item": "riseofthetoasters:fire_resistance_module"
+  }
+}

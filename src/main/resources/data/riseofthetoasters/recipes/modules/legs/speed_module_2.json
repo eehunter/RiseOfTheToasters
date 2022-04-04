@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RSR",
+    "SDS",
+    "RSR"
+  ],
+  "key": {
+    "S": {"item": "minecraft:sugar"},
+    "R": {"tag": "c:redstone_blocks"},
+    "D": {"tag": "c:diamonds"}
+  },
+  "result": {
+    "item": "riseofthetoasters:speed_module_2"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "cyberlib:cyber_forge",
+  "prerequisites": {
+    "type": "apoli:and",
+    "conditions":[
+      {
+        "type": "apoli:ingredient",
+        "ingredient": {"item": "riseofthetoasters:leg"}
+      },
+      {
+        "type": "cyberlib:cyberware_upgrade",
+        "id": "riseofthetoasters:speed_upgrade"
+      },
+      {
+        "type": "cyberlib:cyberware_upgrade_points",
+        "compare_to": 2
+      }
+    ]
+  },
+  "addition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "item": "riseofthetoasters:speed_module_1"
+    }
+  },
+  "outputAction": {
+    "type": "cyberlib:add_upgrade",
+    "id": "riseofthetoasters:speed_upgrade"
+  }
+}

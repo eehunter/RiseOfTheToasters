@@ -3,7 +3,7 @@
   "modifier":  {
     "name": "Speed upgrade 2 bonus",
     "attribute": "generic.movement_speed",
-    "value": 0.1,
+    "value": 0.04,
     "operation": "addition"
   }
 }

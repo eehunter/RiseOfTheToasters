@@ -3,7 +3,7 @@
   "modifier": {
     "name": "Armor upgrade 4 armor bonus",
     "attribute": "minecraft:generic.armor",
-    "value": 8.0,
+    "value": 2.0,
     "operation": "addition"
   }
 }
