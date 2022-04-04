@@ -2,11 +2,13 @@
   "levels": [
     {
       "up": 2.0,
-      "powers": ["riseofthetoasters:strength/attack_damage_1"]
+      "powers": ["riseofthetoasters:strength/attack_damage_1"],
+      "translationKey": "upgrade.strength_1"
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:strength/attack_damage_2","riseofthetoasters:strength/attack_damage_1"]
+      "powers": ["riseofthetoasters:strength/attack_damage_2","riseofthetoasters:strength/attack_damage_1"],
+      "translationKey": "upgrade.strength_2"
     }
   ]
 }

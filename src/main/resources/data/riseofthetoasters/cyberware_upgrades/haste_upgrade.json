@@ -2,11 +2,13 @@
   "levels": [
     {
       "up": 2.0,
-      "powers": ["riseofthetoasters:haste/break_speed_1"]
+      "powers": ["riseofthetoasters:haste/break_speed_1"],
+      "translationKey": "upgrade.haste_1"
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:haste/break_speed_2","riseofthetoasters:haste/break_speed_1"]
+      "powers": ["riseofthetoasters:haste/break_speed_2","riseofthetoasters:haste/break_speed_1"],
+      "translationKey": "upgrade.haste_2"
     }
   ]
 }

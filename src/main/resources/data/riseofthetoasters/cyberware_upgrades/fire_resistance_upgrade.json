@@ -2,7 +2,8 @@
   "levels": [
     {
       "up": 3.0,
-      "powers": ["riseofthetoasters:fire_resistance"]
+      "powers": ["riseofthetoasters:fire_resistance"],
+      "translationKey": "upgrade.fire_resistance"
     }
   ]
 }

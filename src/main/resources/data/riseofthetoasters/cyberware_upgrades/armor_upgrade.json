@@ -2,19 +2,23 @@
   "levels": [
     {
       "up": 1.0,
-      "powers": ["riseofthetoasters:armor/armor_1"]
+      "powers": ["riseofthetoasters:armor/armor_1"],
+      "translationKey": "upgrade.armor_1"
     },
     {
       "up": 2.0,
-      "powers": ["riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
+      "powers": ["riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"],
+      "translationKey": "upgrade.armor_2"
     },
     {
       "up": 3.0,
-      "powers": ["riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
+      "powers": ["riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"],
+      "translationKey": "upgrade.armor_3"
     },
     {
       "up": 4.0,
-      "powers": ["riseofthetoasters:armor/armor_4","riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"]
+      "powers": ["riseofthetoasters:armor/armor_4","riseofthetoasters:armor/armor_3","riseofthetoasters:armor/armor_2","riseofthetoasters:armor/armor_1"],
+      "translationKey": "upgrade.armor_4"
     }
   ]
 }
