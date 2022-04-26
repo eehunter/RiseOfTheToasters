@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "#is_badlands",
+    "#is_beach",
+    "#is_forest",
+    "#is_hill",
+    "#is_jungle",
+    "#is_mountain",
+    "#is_ocean",
+    "#is_river",
+    "savannah",
+    "savannah_plateau",
+    "windswept_savannah",
+    "#is_taiga"
+  ]
+}

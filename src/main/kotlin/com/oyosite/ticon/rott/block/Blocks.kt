@@ -15,10 +15,11 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 import java.util.function.Consumer
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object Blocks {
     val BLOCKS = mutableListOf<Triple<Block,String,FabricItemSettings>>()
 
-    val GROUP = FabricItemGroupBuilder.create(Identifier("$MODID:blocks")).icon{ItemStack(HIGH_TECH_PLATING.asItem())}.appendItems { l -> BLOCKS.forEach { t -> l.add(ItemStack(t.first.asItem())) } }.build()
+    val GROUP = FabricItemGroupBuilder.create(Identifier("$MODID:blocks")).icon{ItemStack(HIGH_TECH_PLATING.asItem())}.appendItems { l -> BLOCKS.forEach { t -> l.add(ItemStack(t.first.asItem())) } }.build()!!
 
     val HIGH_TECH_PLATING = Block(BlockSettings.of(Material.METAL, MapColor.BLACK)).register("high_tech_plating")
     val HIGH_TECH_PLATING_STAIRS = object: StairsBlock(HIGH_TECH_PLATING.defaultState, BlockSettings.copy(HIGH_TECH_PLATING)){}.register("high_tech_stairs")
@@ -28,7 +29,7 @@ object Blocks {
     val CRACKED_HIGH_TECH_PLATING_STAIRS = object: StairsBlock(CRACKED_HIGH_TECH_PLATING.defaultState, BlockSettings.copy(CRACKED_HIGH_TECH_PLATING)){}.register("cracked_high_tech_stairs")
     val CRACKED_HIGH_TECH_PLATING_SLAB = SlabBlock(BlockSettings.copy(CRACKED_HIGH_TECH_PLATING)).register("cracked_high_tech_slab")
 
-    val CYBERFORGE = CyberforgeBlock()
+    val CYBERFORGE = CyberforgeBlock().register("cyberforge")
 
     fun registerBlocks() = BLOCKS.forEach{
         Registry.register(Registry.BLOCK, it.second, it.first)

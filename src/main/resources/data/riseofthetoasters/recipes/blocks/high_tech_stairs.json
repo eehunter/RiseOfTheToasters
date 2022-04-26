@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P  ",
+    "PP ",
+    "PPP"
+  ],
+  "key": {
+    "P": {"item": "riseofthetoasters:high_tech_plating"}
+  },
+  "result": {
+    "item": "riseofthetoasters:high_tech_plating_stairs",
+    "count": 6
+  }
+}

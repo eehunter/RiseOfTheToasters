@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {"item": "riseofthetoasters:high_tech_plating_slab"}
+  },
+  "result": {
+    "item": "riseofthetoasters:high_tech_plating"
+  }
+}

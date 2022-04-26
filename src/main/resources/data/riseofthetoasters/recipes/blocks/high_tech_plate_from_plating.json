@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [{
+    "item": "riseofthetoasters:high_tech_plating"
+  }],
+  "result": {
+    "item": "riseofthetoasters:high_tech_plate"
+  }
+}

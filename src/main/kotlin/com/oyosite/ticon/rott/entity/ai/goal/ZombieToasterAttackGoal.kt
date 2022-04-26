@@ -14,7 +14,7 @@ class ZombieToasterAttackGoal(val zombieToaster: ZombieToaster, speed: Double, p
 
     override fun stop() {
         super.stop()
-        zombieToaster.setAttacking(false)
+        zombieToaster.isAttacking = false
     }
 
     override fun tick() {

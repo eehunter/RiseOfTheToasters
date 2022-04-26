@@ -49,5 +49,5 @@ class CyberwareGuiPower(type: PowerType<*>, entity: LivingEntity, val translatio
         }
     }
 
-    fun createFactory():PowerFactory<CyberwareGuiPower> = PowerFactory(Identifier("$MODID:cyberware_gui"), SDKotlin("title", SerializableDataTypes.STRING, "container.inventory")("key", ApoliDataTypes.KEY, Key())("target_power_id",SerializableDataTypes.IDENTIFIER)){data -> BiFunction{ type, entity -> CyberwareGuiPower(type, entity, data.getString("title"), data.getId("target_power_id")).key(data.get("key"))}}
+    companion object {fun createFactory():PowerFactory<CyberwareGuiPower> = PowerFactory(Identifier("$MODID:cyberware_gui"), SDKotlin("title", SerializableDataTypes.STRING, "container.inventory")("key", ApoliDataTypes.KEY, Key())("target_power_id",SerializableDataTypes.IDENTIFIER)){data -> BiFunction{ type, entity -> CyberwareGuiPower(type, entity, data.getString("title"), data.getId("target_power_id")).key(data.get("key"))}}}
 }

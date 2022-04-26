@@ -1,4 +1,8 @@
 {
+  "block.riseofthetoasters.high_tech_plating": "High Tech Plating",
+  "block.riseofthetoasters.high_tech_stairs": "High Tech Stairs",
+  "block.riseofthetoasters.high_tech_slab": "High Tech Slab",
+
   "item.riseofthetoasters.arm": "Cybernetic Arm",
   "item.riseofthetoasters.leg": "Cybernetic Leg",
   "item.riseofthetoasters.tail": "Cybernetic Tail",
@@ -7,6 +11,7 @@
   "item.riseofthetoasters.arcite_crystal": "Arcite Crystal",
   "item.riseofthetoasters.nanite_dust": "Nanite Dust",
   "item.riseofthetoasters.nanite_gel": "Nanite Gel",
+  "item.riseofthetoasters.high_tech_plate": "High Tech Plate",
 
   "item.riseofthetoasters.armor_module_1": "Armor Module I",
   "item.riseofthetoasters.armor_module_2": "Armor Module II",
@@ -24,7 +29,9 @@
   "item.riseofthetoasters.speed_module_1": "Speed Module I",
   "item.riseofthetoasters.speed_module_2": "Speed Module II",
 
-  "menu.cyber_forge.name": "Cyberforge",
+  "item.riseofthetoasters.zombie_toaster_egg": "Spawn Protogen Zombie",
+
+  "menu.riseofthetoasters.cyberforge.name": "Cyberforge",
 
   "upgrade.armor_1": "Armor I",
   "upgrade.armor_2": "Armor II",
@@ -40,5 +47,7 @@
   "upgrade.strength_1": "Strength I",
   "upgrade.strength_2": "Strength II",
   "upgrade.speed_1": "Speed I",
-  "upgrade.speed_2": "Speed II"
+  "upgrade.speed_2": "Speed II",
+
+  "entity.riseofthetoasters.zombie_toaster": "Protogen Zombie"
 }

@@ -27,9 +27,9 @@ object Items {
         ARM_ASSEMBLY,
         LEG_ASSEMBLY,
         TAIL_ASSEMBLY,
-        with(ItemStack(BASIC_ARM)){nbt=armNbt;this},
-        with(ItemStack(BASIC_LEG)){nbt=legNbt;this},
-        with(ItemStack(BASIC_TAIL)){nbt=tailNbt;this},
+        ItemStack(BASIC_ARM).apply{nbt=armNbt},
+        ItemStack(BASIC_LEG).apply{nbt=legNbt},
+        ItemStack(BASIC_TAIL).apply{nbt=tailNbt},
         *CRAFTING_MATERIALS,
         *MODULES,
 
@@ -45,10 +45,10 @@ object Items {
         }*/
     }.register("zombie_toaster_egg")
     val NANITE_DUST = Item{group(GROUP)}.register("nanite_dust")
-    val NANITE_GEL = Item{this}.register("nanite_gel")
-    val HIGH_TECH_PLATE = Item{this}.register("high_tech_plate")
-    val ARCITE_SHARD = Item{this}.register("arcite_shard")
-    val ARCITE_CRYSTAL = Item{this}.register("arcite_crystal")
+    val NANITE_GEL = Item{}.register("nanite_gel")
+    val HIGH_TECH_PLATE = Item{}.register("high_tech_plate")
+    val ARCITE_SHARD = Item{}.register("arcite_shard")
+    val ARCITE_CRYSTAL = Item{}.register("arcite_crystal")
 
     val CRAFTING_MATERIALS = arrayOf(ARCITE_CRYSTAL, ARCITE_SHARD, NANITE_DUST, NANITE_GEL, HIGH_TECH_PLATE)
 
@@ -59,14 +59,14 @@ object Items {
     val BASIC_LEG = DyeableAugmentItem{maxCount(1)}.register("leg")
     val BASIC_TAIL = DyeableAugmentItem{maxCount(1)}.register("tail")
 
-    val STRENGTH_MODULE_1 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_1")
-    val STRENGTH_MODULE_2 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_2")
     val HASTE_MODULE_1 = ModuleItem(0xD9C043).addLimbs("item.$MODID.arm").register("haste_module_1")
     val HASTE_MODULE_2 = ModuleItem(0xD9C043).addLimbs("item.$MODID.arm").register("haste_module_2")
     val MINING_MODULE_1 = ModuleItem(0x555555).addLimbs("item.$MODID.arm").register("mining_module_1")
     val MINING_MODULE_2 = ModuleItem(0xCCCCCC).addLimbs("item.$MODID.arm").register("mining_module_2")
     val MINING_MODULE_3 = ModuleItem(0x00CCCC).addLimbs("item.$MODID.arm").register("mining_module_3")
     val MINING_MODULE_4 = ModuleItem(0x555555).addLimbs("item.$MODID.arm").register("mining_module_4")
+    val STRENGTH_MODULE_1 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_1")
+    val STRENGTH_MODULE_2 = ModuleItem(0x932423).addLimbs("item.$MODID.arm").register("strength_module_2")
 
     val SPEED_MODULE_1 = ModuleItem(0x7CAFC6).addLimbs("item.$MODID.leg").register("speed_module_1")
     val SPEED_MODULE_2 = ModuleItem(0x7CAFC6).addLimbs("item.$MODID.leg").register("speed_module_2")
@@ -77,12 +77,22 @@ object Items {
     val ARMOR_MODULE_4 = ModuleItem(0xBBBBBB).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("armor_module_4")
     val FIRE_RESISTANCE_MODULE = ModuleItem(0xFF8800).addLimbs("item.$MODID.arm","item.$MODID.leg","item.$MODID.tail").register("fire_resistance_module")
 
-    val MODULES = arrayOf(STRENGTH_MODULE_1, STRENGTH_MODULE_2, HASTE_MODULE_1, HASTE_MODULE_2, MINING_MODULE_1, MINING_MODULE_2, MINING_MODULE_3, MINING_MODULE_4, SPEED_MODULE_1, SPEED_MODULE_2, ARMOR_MODULE_1, FIRE_RESISTANCE_MODULE)
+    /**
+     * NBT driven modules are not currently supported in an official capacity
+     * It is likely that NBT Crafting or a similar mod would be required, or at least very helpful in using NBT driven modules in their current state
+     * If NBT driven modules are used, it is recommended to use this item
+    */
+    val GENERIC_MODULE = "generic_module" .. ModuleItem(0)
+
+    val MODULES = arrayOf(HASTE_MODULE_1, HASTE_MODULE_2, MINING_MODULE_1, MINING_MODULE_2, MINING_MODULE_3, MINING_MODULE_4, STRENGTH_MODULE_1, STRENGTH_MODULE_2, SPEED_MODULE_1, SPEED_MODULE_2, ARMOR_MODULE_1, ARMOR_MODULE_2, ARMOR_MODULE_3, ARMOR_MODULE_4, FIRE_RESISTANCE_MODULE)
 
     fun registerItems() {
         GROUP
         ITEMS.forEach{ Registry.register(Registry.ITEM, it.second, it.first) }
     }
-    fun Item.register(id: String): Item { ITEMS.add(Pair(this, if(id.contains(":"))id else "$MODID:$id")); return this}
-    private fun Item(settings: FabricItemSettings.()->FabricItemSettings) = Item(FabricItemSettings().settings())
+    // This is just me messing around with dumb code to make items register themselves using field names
+    // fun <I: Item>KProperty<I>.register(): I = getter.call().register(name.lowercase(Locale.getDefault()))
+    fun <I: Item> I.register(id: String): I { ITEMS.add(Pair(this, if(id.contains(":"))id else "$MODID:$id")); return this}
+    operator fun <I:Item> String.rangeTo(item: I): I = item.register(this)
+    private fun Item(settings: FabricItemSettings.()->Unit) = Item(FabricItemSettings().apply(settings))
 }
