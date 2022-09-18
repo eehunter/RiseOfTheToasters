@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "riseofthetoasters:block/cardboard_box/box_top",
+    "front": "riseofthetoasters:block/cardboard_box/box_front",
+    "side": "riseofthetoasters:block/cardboard_box/box_side",
+    "label": "riseofthetoasters:block/cardboard_box/blank_label"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#down", "cullface": "down" },
+        "up":    { "texture": "#up", "cullface": "up" },
+        "north": { "texture": "#north", "cullface": "north" },
+        "south": { "texture": "#south", "cullface": "south" },
+        "west":  { "texture": "#west", "cullface": "west" },
+        "east":  { "texture": "#east", "cullface": "east" }
+      }
+    },
+    {
+      "from": [0,0,0],
+      "to": [16,16,16],
+      "faces": {
+        "north": { "texture":  "#label", "cullface": "north"}
+      }
+    }
+  ]
+}

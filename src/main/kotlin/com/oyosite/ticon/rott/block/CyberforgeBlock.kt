@@ -27,7 +27,7 @@ class CyberforgeBlock: Block(BlockSettings.of(Material.METAL, MapColor.GRAY)) {
         operator fun invoke(world: World, pos: BlockPos, forceLoad: Boolean = true) = this(CachedBlockPosition(world, pos, forceLoad))
         operator fun invoke(newPos: CachedBlockPosition): CyberForgeSHF{ pos = newPos; return this }
         override fun createMenu(syncId: Int, inv: PlayerInventory, player: PlayerEntity): ScreenHandler = CyberForgeScreenHandler(syncId, inv, cachedPos)
-        override fun getDisplayName(): Text = TranslatableText("menu.cyber_forge.name")
+        override fun getDisplayName(): Text = TranslatableText("menu.riseofthetoasters.cyber_forge.name")
     }
     override fun createScreenHandlerFactory(state: BlockState, world: World, pos: BlockPos): NamedScreenHandlerFactory = CyberForgeSHF
     override fun onUse(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, hand: Hand, hit: BlockHitResult): ActionResult = with(player){ openHandledScreen(CyberForgeSHF(world, pos));ActionResult.SUCCESS }

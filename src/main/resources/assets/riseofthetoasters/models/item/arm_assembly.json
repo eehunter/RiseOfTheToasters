@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "riseofthetoasters:block/cardboard_box/cardboard_box",
   "textures": {
-    "layer0": "riseofthetoasters:item/arm_assembly"
+    "label": "riseofthetoasters:block/cardboard_box/arm_label"
   }
 }

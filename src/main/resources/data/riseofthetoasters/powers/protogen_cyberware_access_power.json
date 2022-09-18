@@ -1,0 +1,5 @@
+{
+  "type": "riseofthetoasters:cyberware_gui",
+  "title": "container.protogen.limbs",
+  "target_power_id": "riseofthetoasters:protogen_cyberware_power"
+}

@@ -2,10 +2,17 @@
   "block.riseofthetoasters.high_tech_plating": "High Tech Plating",
   "block.riseofthetoasters.high_tech_stairs": "High Tech Stairs",
   "block.riseofthetoasters.high_tech_slab": "High Tech Slab",
+  "block.riseofthetoasters.cracked_high_tech_plating": "Cracked High Tech Plating",
+  "block.riseofthetoasters.cracked_high_tech_stairs": "Cracked High Tech Stairs",
+  "block.riseofthetoasters.cracked_high_tech_slab": "Cracked High Tech Slab",
+  "block.riseofthetoasters.cyberforge": "Cyberforge",
 
   "item.riseofthetoasters.arm": "Cybernetic Arm",
   "item.riseofthetoasters.leg": "Cybernetic Leg",
   "item.riseofthetoasters.tail": "Cybernetic Tail",
+  "item.riseofthetoasters.arm_assembly": "Cybernetic Arm Assembly",
+  "item.riseofthetoasters.leg_assembly": "Cybernetic Leg Assembly",
+  "item.riseofthetoasters.tail_assembly": "Cybernetic Tail Assembly",
 
   "item.riseofthetoasters.arcite_shard": "Arcite Shard",
   "item.riseofthetoasters.arcite_crystal": "Arcite Crystal",
@@ -44,10 +51,19 @@
   "upgrade.mining_2": "Mining II (Iron)",
   "upgrade.mining_3": "Mining III (Diamond)",
   "upgrade.mining_4": "Mining IV (Netherite)",
-  "upgrade.strength_1": "Strength I",
-  "upgrade.strength_2": "Strength II",
   "upgrade.speed_1": "Speed I",
   "upgrade.speed_2": "Speed II",
+  "upgrade.strength_1": "Strength I",
+  "upgrade.strength_2": "Strength II",
 
-  "entity.riseofthetoasters.zombie_toaster": "Protogen Zombie"
+  "entity.riseofthetoasters.zombie_toaster": "Protogen Zombie",
+
+  "container.protogen.limbs": "Protogen Limbs",
+  "menu.riseofthetoasters.cyber_forge.name": "Cyberforge",
+  "tooltip.riseofthetoasters.applicable.to": "Applicable to:",
+
+  "itemGroup.riseofthetoasters.blocks": "RotT Blocks",
+  "itemGroup.riseofthetoasters.items": "RotT Items",
+
+  "tooltip.no_upgrades": "No upgrades installed."
 }

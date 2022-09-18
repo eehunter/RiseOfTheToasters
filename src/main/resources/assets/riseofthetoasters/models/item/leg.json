@@ -1,8 +1,8 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "riseofthetoasters:item/arm_leg_fur",
-    "layer1": "riseofthetoasters:item/leg_trim",
-    "layer2": "riseofthetoasters:item/leg_outline"
+    "layer0": "riseofthetoasters:item/limbs/arm_leg_fur",
+    "layer1": "riseofthetoasters:item/limbs/leg_trim",
+    "layer2": "riseofthetoasters:item/limbs/leg_outline"
   }
 }
