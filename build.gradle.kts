@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.7.10"
     id("fabric-loom")
     `maven-publish`
     java
@@ -66,7 +66,8 @@ tasks {
         from("LICENSE")
     }
 
-    publishing {
+    // I do this through Jitpack. Removing this lets me update Loom.
+    /*publishing {
         publications {
             create<MavenPublication>("mavenJava") {
                 artifact(remapJar) {
@@ -83,7 +84,7 @@ tasks {
             // uncomment to publish to the local maven
             // mavenLocal()
         }
-    }
+    }*/
 
     compileKotlin {
         kotlinOptions.jvmTarget = "17"
